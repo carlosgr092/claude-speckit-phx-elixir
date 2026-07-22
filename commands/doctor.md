@@ -51,15 +51,27 @@ Run these read-only checks and collect a status + detail for each.
 - `.specify/memory/constitution.md` present → else `warn` ("run /spx:constitution").
 - Unfilled template detection: if it still contains scaffold placeholders (`[PROJECT_NAME]`,
   `[CONSTITUTION_VERSION]`, `[RATIFICATION_DATE]`), report `warn` (seeded but not filled).
-- **Derived-copy freshness**: the four enforcement copies must be regenerated from the
-  constitution whenever it changes (D3). Compare the constitution's mtime against each derived
-  copy; if any derived copy is **older** than the constitution, report `warn` (stale — re-run
-  `/spx:constitution` to regenerate):
-  - CLAUDE.md block between `<!-- ELIXIR-PHOENIX-PLUGIN:START/END -->`
-  - AGENTS.md block between `<!-- ELIXIR-PHOENIX-REVIEW-GUIDELINES:START/END -->`
-  - the `inject-iron-laws.sh` SubagentStart bullet list (under `hooks/scripts/`)
-  - the `iron-law-verifier.sh` check list (under `hooks/scripts/`)
-  Report each present/absent and fresh/stale individually.
+- **Derived-copy freshness (version stamp, NOT mtime)**: the enforcement copies must be
+  regenerated from the constitution whenever it changes (D3). Do **not** compare mtimes — they
+  are unreliable here: a `git clone` rewrites every file's mtime in checkout order, and
+  `/spx:constitution` writes `constitution.md` last (after regenerating the copies), so a
+  fresh, correct regeneration would always look "stale". Instead compare the embedded
+  **constitution version stamp**. Read the project constitution's `Version: X.Y.Z` line, then
+  for each project-local derived copy read its `constitution vX.Y.Z` stamp:
+  - CLAUDE.md block between `<!-- ELIXIR-PHOENIX-PLUGIN:START/END -->` — the auto-generated
+    comment carries `constitution vX.Y.Z`.
+  - AGENTS.md block between `<!-- ELIXIR-PHOENIX-REVIEW-GUIDELINES:START/END -->` — the managed
+    comment carries `constitution vX.Y.Z`.
+
+  For each block: stamp matches the constitution version → `ok` (fresh); stamp present but a
+  different version → `warn` (stale — re-run `/spx:constitution` to regenerate); block present
+  but **no** stamp (installed before stamping existed) → `warn` ("cannot verify freshness —
+  re-run /spx:constitution to add a version stamp"), never a false `stale`; block absent →
+  `warn` ("run /spx:constitution").
+- **Plugin-shipped copies** (`inject-iron-laws.sh` and `iron-law-verifier.sh` under
+  `hooks/scripts/`) track the plugin's OWN constitution, not the project's, so they are not
+  freshness-checked against the project constitution. Report only that each is present and
+  executable (a missing or non-executable wired script is a `fail` under Hook wiring below).
 
 ### 4. Hook wiring
 
@@ -117,8 +129,8 @@ Feature
   ok    active feature: specs/003-magic-link-auth (spec.md, plan.md, tasks.md present)
 
 Constitution
-  ok    .specify/memory/constitution.md present and filled
-  warn  derived copy stale: inject-iron-laws.sh older than constitution — run /spx:constitution
+  ok    .specify/memory/constitution.md present and filled (v0.2.0)
+  warn  derived copy stale: CLAUDE.md block stamped constitution v0.1.0 (now v0.2.0) — run /spx:constitution
 
 Hooks
   ok    hooks.json valid; 10 events wired; all scripts executable
@@ -149,7 +161,7 @@ Emit exactly one JSON object, no prose:
   "checks": [
     {"group": "workspace", "name": "specify-tree", "status": "ok", "detail": "..."},
     {"group": "feature", "name": "feature-json", "status": "ok", "detail": "specs/003-..."},
-    {"group": "constitution", "name": "derived-freshness", "status": "warn", "detail": "inject-iron-laws.sh stale"},
+    {"group": "constitution", "name": "derived-freshness", "status": "warn", "detail": "CLAUDE.md block stamped v0.1.0, constitution v0.2.0"},
     {"group": "hooks", "name": "hooks-json", "status": "ok", "detail": "10 events wired"},
     {"group": "tools", "name": "codex", "status": "warn", "detail": "not on PATH"},
     {"group": "runtime", "name": "tidewave", "status": "ok", "detail": "reachable :4000"}
@@ -170,3 +182,7 @@ Emit exactly one JSON object, no prose:
   does not exist) is `fail`.
 - Self-gate Elixir checks on `mix.exs` (D9): in a non-Elixir repo they are `n/a`, and the
   spine can still be `healthy`.
+- **Enumerate with machine-parseable tools, never `ls`.** When a check needs to list files or
+  directories, use `find`, `test -d`/`test -e`/`[ -e ]`, glob expansion, or `git ls-files` —
+  not `ls`. A user's `ls` may be shell-aliased to a formatter (e.g. `eza` with a table/tree
+  layout), whose output is not reliably parseable and produces spurious `fail`/`warn` results.

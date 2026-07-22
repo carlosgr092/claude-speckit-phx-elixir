@@ -41,6 +41,16 @@ auto_commit:
     message: "[Spec Kit] Add implementation plan"
 ```
 
+## Scope (by design)
+
+This command is a fast, non-blocking auto-commit at phase boundaries. It **intentionally does
+not run the Verification Gate** (`mix compile --warnings-as-errors`, `mix format --check`,
+tests) — code correctness is gated by `/spx:implement`, which verifies each task before its
+commit. Keeping this command build-free preserves its D9 stack-agnosticism (it commits docs and
+non-Elixir changes too) and its graceful-degradation contract. Do not add a compile/test step
+here; if you want verification before committing hand-written code, run it via `/spx:implement`
+or manually first.
+
 ## Graceful Degradation
 
 - If Git is not available or the current directory is not a repository: skips with a warning

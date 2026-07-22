@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-07-22
+
+Command-robustness fixes surfaced by the first full end-to-end run of the flow on a real
+Phoenix feature. No rule or behavior contracts changed; these harden how the spine commands
+detect state, propagate decisions, and verify their own sub-agents.
+
+### Fixed
+
+- `/spx:doctor` derived-copy freshness reported a false "stale" on essentially every run.
+  It compared file mtimes, but `/spx:constitution` writes the constitution *last* (so a
+  correct regeneration always looked stale) and a `git clone` rewrites every mtime. Doctor
+  now compares a `constitution vX.Y.Z` version stamp embedded in the CLAUDE.md and AGENTS.md
+  marker blocks against the constitution's `Version:` line, and `/spx:constitution` stamps
+  that version into both blocks on regeneration. The plugin-shipped hook copies track the
+  plugin's own constitution (not the project's) and are no longer freshness-checked against a
+  project constitution.
+- `/spx:clarify` could leave a spec section contradicting a just-resolved decision (e.g. an
+  Edge Case still asserting the old behavior). It now runs a cross-section consistency sweep
+  after each answer — reconciling Functional Requirements, User Stories, Data Model, Success
+  Criteria, Edge Cases, Assumptions, and Constraints — with a matching final validation pass.
+- `/spx:analyze` remediation suggestions now enumerate every artifact a fix touches (spec
+  including Edge Cases, plan, data-model, contracts, tasks) so applying a fix leaves nothing
+  stale, and are gated on the fix's failure scenario actually being reachable — no more
+  recommending tests for states the data model or authorization rules already preclude
+  (which could tempt an Iron-Law-violating guard).
+- `/spx:plan` and the planning-orchestrator now verify each background research agent wrote a
+  non-empty output file before treating it complete; a "finished" status message is no longer
+  taken as proof of output, closing a silent-failure gap.
+- `/spx:specify` reads the scaffolded `spec.md` before overwriting it, avoiding the harness's
+  Write-before-Read error on every run.
+- `/spx:doctor` enumerates files with `find` / `test` / `git ls-files` instead of `ls`, whose
+  output can be reformatted by a shell alias (e.g. eza) and misparsed.
+
+### Changed
+
+- `/spx:git-commit` now documents that it intentionally does not run the Verification Gate
+  (that gate lives in `/spx:implement`), preserving its fast, non-blocking, stack-agnostic
+  auto-commit contract.
+
 ## [0.1.1] - 2026-07-21
 
 ### Fixed
@@ -86,5 +125,7 @@ both MIT (see [NOTICE.md](NOTICE.md)).
 - Fuses and adapts `oliver-kriska/claude-elixir-phoenix` (MIT) — the specialist agents, the
   Elixir/Phoenix domain skills, the enforcement hooks, and the Iron Laws corpus.
 
-[Unreleased]: https://github.com/carlosgr092/claude-speckit-phx-elixir/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/carlosgr092/claude-speckit-phx-elixir/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/carlosgr092/claude-speckit-phx-elixir/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/carlosgr092/claude-speckit-phx-elixir/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/carlosgr092/claude-speckit-phx-elixir/releases/tag/v0.1.0

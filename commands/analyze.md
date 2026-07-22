@@ -223,6 +223,11 @@ At end of report, output a concise Next Actions block:
 
 Ask the user: "Would you like me to suggest concrete remediation edits for the top N issues?" (Do NOT apply them automatically.)
 
+When you DO suggest remediation edits, for EACH fix:
+
+- **Enumerate every artifact the fix touches, not just the one that surfaced the finding.** A single decision usually spans `spec.md` (including its Edge Cases), `plan.md`, `data-model.md`, `contracts/`, and `tasks.md`. Renaming a function, changing a schema field, or resolving a contradiction must be reflected in ALL of them — a remediation that edits `tasks.md` and `contracts/` but leaves `plan.md` naming the old function just relocates the drift. List the concrete file+section for each so applying the fix leaves nothing stale, and end with a one-line consistency re-check asserting no artifact still contradicts the resolved item.
+- **Verify the fix's failure scenario is REACHABLE before recommending it.** Do not recommend adding a test or asserting a "missing" behavior for a state the data model or authorization rules already preclude (e.g. asserting an "agent unauthorized for a conversation" path when every conversation is scoped so that state cannot arise). An unreachable-state recommendation wastes effort and can tempt a guard that itself violates an Iron Law (e.g. an extra authz branch that duplicates or contradicts Law 11). If a scenario cannot actually occur, say so and drop the recommendation instead.
+
 ### 9. Check for extension hooks
 
 After reporting, check if `.specify/extensions.yml` exists in the project root.
