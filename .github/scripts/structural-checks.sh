@@ -34,12 +34,18 @@ has_key() {
   printf '%s\n' "$1" | grep -Eq "^${2}:[[:space:]]*[^[:space:]].*$"
 }
 
-# Enumerate files for a git pathspec; fall back to `find` when the repo has no
-# commits yet (git ls-files would return nothing and we'd validate 0 files — F1).
+# Enumerate files for a git pathspec as a NUL-delimited stream; fall back to
+# `find` when the repo has no commits yet (git ls-files would return nothing and
+# we'd validate 0 files — F1). NEVER capture the -z output in $(...): command
+# substitution strips NUL bytes, so the delimiters vanish and the downstream
+# NUL-reader sees 0 files (the "ignored null byte in input" gate breakage). Use
+# the newline form only for the emptiness probe, then stream the real -z output.
 enum() {  # $1=git pathspec  $2=find dir  $3=maxdepth  $4=find -name
-  local z; z="$(git ls-files -z -- "$1" 2>/dev/null)"
-  if [ -n "$z" ]; then printf '%s' "$z"
-  else find "$2" -maxdepth "$3" -type f -name "$4" -print0 2>/dev/null; fi
+  if [ -n "$(git ls-files -- "$1" 2>/dev/null)" ]; then
+    git ls-files -z -- "$1" 2>/dev/null
+  else
+    find "$2" -maxdepth "$3" -type f -name "$4" -print0 2>/dev/null
+  fi
 }
 
 check_frontmatter_files() {  # reads a NUL-delimited file list on stdin

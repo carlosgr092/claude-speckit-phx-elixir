@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- CI: the `Validate` workflow's structural-checks fallback enumerated 0
+  command/agent/skill files and failed the gate on every push. The `enum` helper
+  captured `git ls-files -z` output in a command substitution, which strips NUL
+  bytes, so the NUL-delimited reader downstream saw zero files. It now streams the
+  NUL list directly and correctly validates 21 commands, 26 agents, and 48 skills.
+- Docs: corrected the constitution article count from 8 to 9 across the README,
+  CONTRIBUTING, ARCHITECTURE, and CHANGELOG, and added Article IX (the reserved
+  project-specific principles slot) to the README's article enumeration. The shipped
+  constitution already had 9 Articles; only the prose describing it lagged.
+
 ## [0.1.0] - 2026-07-21
 
 Initial fused release. The full spec-kit spec-driven flow, made Elixir-aware end to end
@@ -40,7 +52,7 @@ both MIT (see [NOTICE.md](NOTICE.md)).
 - **48 skills.** Domain and infrastructure knowledge (Ecto, LiveView, Oban, Ash, OTP,
   contexts, security, testing, deploy, and more) that auto-loads by file pattern, plus the
   workflow-command skills.
-- **The merged constitution.** `memory/constitution.md` — 8 Articles codifying 53 Iron Laws,
+- **The merged constitution.** `memory/constitution.md` — 9 Articles codifying 53 Iron Laws,
   7 Core Principles, 23 Workflow Laws, the Complexity Router, conditional stack annexes
   (Oban, Oban Pro, Ash, Tidewave), and governance rules. Single-sourced, with four derived
   enforcement copies regenerated on every amendment.
