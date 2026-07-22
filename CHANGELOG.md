@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-21
+
 ### Fixed
 
 - CI: the `Validate` workflow's structural-checks fallback enumerated 0

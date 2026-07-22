@@ -1,6 +1,6 @@
 {
   "name": "claude-speckit-phx-elixir",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Spec-driven development for Elixir/Phoenix: the full spec-kit flow (constitution, specify, clarify, plan, tasks, analyze, checklist, implement, git, issues) fused with 26 Elixir specialist agents, Iron Laws enforcement hooks, and the complete Phoenix/Ecto/LiveView/Oban/Ash/OTP knowledge base. /spx:* commands.",
   "keywords": ["spec-kit", "spec-driven", "elixir", "phoenix", "liveview", "ecto", "oban", "ash", "otp", "sdd"],
   "author": { "name": "carlosgr092" },
