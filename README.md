@@ -54,7 +54,7 @@ It is a **derivative work** that fuses and adapts both upstreams (both MIT). See
 
 ## What it is
 
-A single Claude Code plugin exposing **55 `/spx:*` slash commands**, **26 specialist subagents**, **48 skills** (domain knowledge + workflow procedures), and **23 enforcement hooks**, all governed by **one merged constitution** of 53 Iron Laws across 8 Articles. The spec-kit spine runs in *any* repository; the Elixir intelligence self-activates only when a `mix.exs` is present, so the plugin is safe to install everywhere and never gets in the way on non-Elixir projects.
+A single Claude Code plugin exposing **55 `/spx:*` slash commands**, **26 specialist subagents**, **48 skills** (domain knowledge + workflow procedures), and **23 enforcement hooks**, all governed by **one merged constitution** of 53 Iron Laws across 9 Articles. The spec-kit spine runs in *any* repository; the Elixir intelligence self-activates only when a `mix.exs` is present, so the plugin is safe to install everywhere and never gets in the way on non-Elixir projects.
 
 ## The flow
 
@@ -237,7 +237,7 @@ Elixir/Phoenix intelligence that does not fit the linear flow. Each is an invoca
 
 ## The Iron Laws
 
-The constitution is the heart of the plugin: **8 Articles** codifying **53 Iron Laws**, 7 Core Principles, and the workflow and governance rules. When code would violate a law, the STOP protocol fires: the assistant names the law, shows what was written, shows the correct pattern, and asks before applying a fix. Six laws are also checked programmatically by a PostToolUse hook, and the full corpus is injected into every subagent.
+The constitution is the heart of the plugin: **9 Articles** codifying **53 Iron Laws**, 7 Core Principles, and the workflow and governance rules. When code would violate a law, the STOP protocol fires: the assistant names the law, shows what was written, shows the correct pattern, and asks before applying a fix. Six laws are also checked programmatically by a PostToolUse hook, and the full corpus is injected into every subagent.
 
 **Core Principles (Article I).** Scope-first authorization (no IDOR); thin web, fat context (zero `Repo.` calls in the web layer); deterministic core (injectable Clock, effects behind adapters); no N+1; idempotent jobs; the Verification Gate; and spec authority (analyze is read-only, converge is append-only, principles are never diluted).
 
@@ -255,7 +255,7 @@ The 53 laws (Article II), by domain:
 | **Deploy / Ops** | 49-53 | Runtime config for env-dependent values; graceful shutdown drain window; light health endpoints; SSL `verify_peer`; never CPU-limit BEAM containers. |
 | **Style & Verification** | 22, 26 | Verify before claiming done (run `mix compile && mix test`, show the result); comments hold durable facts, not commit messages; straight quotes only. |
 
-The remaining Articles govern the process: **III** Workflow Laws (23 rules — no auto-transitions, verify after every task, read-only reviews, test-first), **IV** the Complexity Router (score a request, route to quick / specify / full), **V** conditional stack annexes (Oban, Oban Pro, Ash, Tidewave), **VI** skill and agent execution enforcement, **VII** the four enforcement channels kept in sync, and **VIII** governance and amendment.
+The remaining Articles govern the process: **III** Workflow Laws (23 rules — no auto-transitions, verify after every task, read-only reviews, test-first), **IV** the Complexity Router (score a request, route to quick / specify / full), **V** conditional stack annexes (Oban, Oban Pro, Ash, Tidewave), **VI** skill and agent execution enforcement, **VII** the four enforcement channels kept in sync, and **VIII** governance and amendment. **IX** is a reserved slot for the project's own principles, empty in the shipped default and filled by `/spx:constitution`.
 
 ## Artifact layout
 

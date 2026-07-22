@@ -45,7 +45,7 @@ Changes that **are** in scope for this repo:
 
 ## The constitution is the single source of truth
 
-`memory/constitution.md` — 53 Iron Laws across 8 Articles — is the **canonical** governance document for the plugin. It is the single source of truth for every Iron Law and principle.
+`memory/constitution.md` — 53 Iron Laws across 9 Articles — is the **canonical** governance document for the plugin. It is the single source of truth for every Iron Law and principle.
 
 - **Never edit an Iron Law in a derived copy.** The `/spx:constitution` command regenerates the derived enforcement copies from the canonical file. If you hand-edit a copy, your change is lost on the next regeneration and the copies drift out of sync.
 - **Edit the canonical file, then regenerate.** Change `memory/constitution.md`, then let `/spx:constitution` propagate the update into the derived copies, templates, and commands.

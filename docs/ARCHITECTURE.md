@@ -48,7 +48,7 @@ claude-speckit-phx-elixir/
 │   ├── plugin.json          # manifest (name, version, description, keywords)
 │   └── marketplace.json     # single-plugin marketplace, source "./"
 ├── memory/
-│   ├── constitution.md      # THE canonical 53-law corpus (8 Articles)
+│   ├── constitution.md      # THE canonical 53-law corpus (9 Articles)
 │   └── derivations.md        # single-source rule + the 4 derived copies
 ├── templates/                # 9 templates: constitution, spec, plan, tasks, checklist,
 │                             #   claude-md-block, agents-md-block, extensions.yml, git-config.yml
