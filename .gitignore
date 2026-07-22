@@ -1,0 +1,29 @@
+# Cloned upstreams used only as build sources — never committed
+.sources/
+
+# Internal build/analysis notes — not part of the published plugin.
+# NOTE: the rest of docs/ IS tracked — README lives at the repo root, and
+# docs/ARCHITECTURE.md, docs/RELEASE-PROCESS.md and other authored docs ship.
+docs/build/
+docs/comprension/
+
+# Node / tooling
+node_modules/
+*.log
+.DS_Store
+
+# Editor / OS cruft
+*.swp
+.idea/
+.vscode/
+
+# Internal build plan (public-facing version is docs/ARCHITECTURE.md)
+BLUEPRINT.md
+
+# Erlang/BEAM crash + build artifacts
+erl_crash.dump
+*.dump
+
+# Internal development knowledge — lives local, not in the public repo
+CLAUDE.md
+docs/TEST-FINDINGS.md

@@ -1,0 +1,63 @@
+name: Validate
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  plugin-validate:
+    name: Plugin structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Try the official plugin validator
+        id: cli
+        run: |
+          set -uo pipefail
+          if command -v claude > /dev/null 2>&1; then
+            echo "claude CLI found — running \`claude plugin validate .\`"
+            claude plugin validate .
+            echo "used_cli=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "claude CLI not available on the runner — falling back to structural checks"
+            echo "used_cli=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Structural checks (frontmatter, manifests, hooks)
+        if: steps.cli.outputs.used_cli != 'true'
+        run: bash .github/scripts/structural-checks.sh
+
+  hook-tests:
+    name: Hook tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run hooks/tests/*.sh
+        run: |
+          set -uo pipefail
+          shopt -s nullglob
+          tests=(hooks/tests/*.sh)
+          if [ ${#tests[@]} -eq 0 ]; then
+            echo "No hook tests found."
+            exit 0
+          fi
+          rc=0
+          for t in "${tests[@]}"; do
+            echo "::group::$t"
+            if bash "$t"; then
+              echo "PASS: $t"
+            else
+              echo "::error file=$t::hook test failed"
+              rc=1
+            fi
+            echo "::endgroup::"
+          done
+          exit "$rc"

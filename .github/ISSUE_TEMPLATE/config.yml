@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & ideas (Discussions)
+    url: https://github.com/carlosgr092/claude-speckit-phx-elixir/discussions
+    about: Ask questions, get usage help, or propose ideas before opening an issue.
+  - name: Security vulnerability
+    url: https://github.com/carlosgr092/claude-speckit-phx-elixir/security/advisories/new
+    about: Report security issues privately — never in a public issue.

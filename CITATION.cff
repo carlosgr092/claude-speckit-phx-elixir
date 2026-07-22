@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it as below."
+title: "claude-speckit-phx-elixir"
+abstract: >-
+  A Claude Code plugin that fuses spec-driven development (spec-kit) with deep
+  Elixir/Phoenix engineering intelligence (the claude-elixir-phoenix plugin),
+  so every phase of the spec-driven flow is Elixir-aware.
+type: software
+authors:
+  - alias: carlosgr092
+    website: "https://github.com/carlosgr092"
+version: 0.1.0
+date-released: "2026-07-21"
+license: MIT
+repository-code: "https://github.com/carlosgr092/claude-speckit-phx-elixir"
+keywords:
+  - spec-driven-development
+  - elixir
+  - phoenix
+  - claude-code
+  - plugin
+references:
+  - type: software
+    title: "Spec Kit"
+    notes: "Spec-driven development toolkit; the process spine this project builds on."
+    repository-code: "https://github.com/github/spec-kit"
+    license: MIT
+  - type: software
+    title: "claude-elixir-phoenix"
+    authors:
+      - family-names: Kriska
+        given-names: Oliver
+    notes: "Elixir/Phoenix specialist agents, skills, hooks, and Iron Laws absorbed by this project."
+    repository-code: "https://github.com/oliver-kriska/claude-elixir-phoenix"
+    license: MIT

@@ -1,0 +1,121 @@
+name: Lint
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  markdownlint:
+    name: Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          config: ".markdownlint.json"
+          globs: |
+            '**/*.md'
+            '!.sources/**'
+            '!docs/build/**'
+            '!docs/comprension/**'
+
+  yamllint:
+    name: YAML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pipx install yamllint
+
+      - name: Lint YAML files
+        run: |
+          set -euo pipefail
+          git ls-files -z -- '*.yml' '*.yaml' \
+            | xargs -0 --no-run-if-empty \
+              yamllint -d "{extends: relaxed, rules: {line-length: disable, comments: disable, truthy: disable}}"
+
+  json:
+    name: JSON
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate every JSON file parses
+        run: |
+          set -euo pipefail
+          rc=0
+          while IFS= read -r -d '' f; do
+            if ! jq empty "$f" 2>err.log; then
+              echo "::error file=$f::Invalid JSON: $(tr '\n' ' ' < err.log)"
+              rc=1
+            fi
+          done < <(git ls-files -z -- '*.json')
+          exit "$rc"
+
+      - name: Validate hooks.json structure
+        run: |
+          set -euo pipefail
+          jq -e 'has("hooks")' hooks/hooks.json > /dev/null \
+            || { echo "::error::hooks/hooks.json missing top-level \"hooks\" key"; exit 1; }
+          # Every hook entry with type "command" must carry a command string.
+          bad=$(jq -r '
+            [ .hooks
+              | to_entries[]
+              | .value[]?
+              | .hooks[]?
+              | select(.type == "command")
+              | select((.command // "") == "")
+            ] | length' hooks/hooks.json)
+          if [ "$bad" != "0" ]; then
+            echo "::error::hooks.json has $bad command hook(s) with an empty command"
+            exit 1
+          fi
+          echo "hooks.json OK"
+
+      - name: Validate plugin manifest keys
+        run: |
+          set -euo pipefail
+          for key in name version description; do
+            jq -e --arg k "$key" 'has($k)' .claude-plugin/plugin.json > /dev/null \
+              || { echo "::error::plugin.json missing required key: $key"; exit 1; }
+          done
+          echo "plugin.json OK"
+
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # shellcheck is preinstalled on ubuntu-latest runners.
+      - name: Run shellcheck on shell scripts
+        run: |
+          set -euo pipefail
+          git ls-files -z -- '*.sh' \
+            | xargs -0 --no-run-if-empty shellcheck --severity=error --shell=bash
+
+      # macOS ships bash 3.2, where bash 4+ case-modification parameter
+      # expansions error with "bad substitution". Guard against them so the
+      # shipped scripts stay portable.
+      - name: Reject bash 4+ case-modification expansions
+        run: |
+          set -euo pipefail
+          matches=$(git ls-files -z -- '*.sh' \
+            | xargs -0 --no-run-if-empty grep -nE \
+              '\$\{[A-Za-z_][A-Za-z0-9_]*(\[[^]]*\])?(\^\^?|,,?)[^}]*\}' || true)
+          if [ -n "$matches" ]; then
+            echo "::error::Found bash 4+ case-modification expansion(s); use tr for portability:"
+            echo "$matches"
+            exit 1
+          fi

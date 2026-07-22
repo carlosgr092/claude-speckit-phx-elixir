@@ -1,0 +1,12 @@
+{
+  "name": "carlosgr092-speckit-phx",
+  "description": "Spec-driven development for Elixir/Phoenix — the spec-kit flow fused with deep Elixir/Phoenix engineering intelligence.",
+  "owner": { "name": "carlosgr092" },
+  "plugins": [
+    {
+      "name": "claude-speckit-phx-elixir",
+      "source": "./",
+      "description": "Spec-driven development for Elixir/Phoenix — the spec-kit flow fused with the elixir-phoenix intelligence (agents, Iron Laws, hooks). /spx:* commands."
+    }
+  ]
+}
