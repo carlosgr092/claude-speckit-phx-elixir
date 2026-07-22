@@ -109,7 +109,7 @@ Prefer the highest-fidelity source available:
 
 1. **Tidewave** (exact version from `mix.lock`):
 
-   ```
+   ```text
    mcp__tidewave__get_docs(module: "Ash.Resource")
    mcp__tidewave__get_docs(module: "AshPhoenix.Form")
    ```
@@ -123,7 +123,7 @@ Prefer the highest-fidelity source available:
 
 3. **WebFetch hexdocs.pm** (fallback when neither is available):
 
-   ```
+   ```text
    WebFetch(url: "https://hexdocs.pm/ash/Ash.Resource.html", prompt: "Extract module docs.")
    ```
 

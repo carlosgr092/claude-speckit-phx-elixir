@@ -15,7 +15,7 @@ silent-failure footgun on large diffs — the user picked "no" to save
 time, the skill reported "no findings," and a bidi-char trojan landed in
 the lock with no warning. **Removed.** Heuristics run by default.
 
-```
+```text
 /spx:deps-audit          ← runs the full pipeline
 /spx:deps-audit --base main
 /spx:deps-audit --preview httpoison
@@ -35,7 +35,7 @@ maintainer just wants to confirm no known-CVE updates are merging dirty.
 
 Target latency on a 25-package update: **<10s**.
 
-```
+```text
 /spx:deps-audit --quick
 ```
 
@@ -47,7 +47,7 @@ Flag synonyms considered: `--cve-only`, `--no-heuristics`, `--fast`.
 
 The full scan emits one line per package per phase to stdout:
 
-```
+```text
 [ 1/25] cowboy 2.13.0 — fetching tarball...
 [ 2/25] cowlib 2.15.0 — fetching tarball...
 ...
@@ -140,7 +140,7 @@ pass.
 `.claude/deps-audit/last-run.trace.log` documenting every shell command
 the audit ran (one per line, prefixed with timestamp + duration):
 
-```
+```text
 2026-05-13T11:01:50.123Z [3.4s] mix hex.package fetch decimal 2.3.0 --unpack -o /tmp/phx-deps-audit-XXX/tarballs/decimal/2.3.0
 2026-05-13T11:01:53.501Z [3.1s] mix hex.package fetch decimal 2.4.1 --unpack -o /tmp/phx-deps-audit-XXX/tarballs/decimal/2.4.1
 2026-05-13T11:01:56.612Z [0.4s] grep -rP '[\x{202a}-\x{202e}\x{2066}-\x{2069}]' /tmp/phx-deps-audit-XXX/tarballs/decimal/2.4.1

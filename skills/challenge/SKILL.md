@@ -28,26 +28,26 @@ Rigorous, critical review patterns inspired by Boris Cherny's "Grill me" approac
 
 Grill the developer on database changes:
 
-**Migration Safety**
+#### Migration Safety
 
 - Will this migration lock the table in production?
 - What happens to existing records without the new field?
 - Is the migration reversible?
 - Are there any unsafe operations (column removal, type change)?
 
-**Query Performance**
+#### Query Performance
 
 - Have you introduced any N+1 queries?
 - Are there missing indexes for new WHERE clauses?
 - Will this query scale with data growth?
 
-**Schema Integrity**
+#### Schema Integrity
 
 - Are all constraints enforced at database level?
 - What happens during rolling deployment (old code, new schema)?
 - Are foreign key cascades correct?
 
-**Backward Compatibility**
+#### Backward Compatibility
 
 - Will old code work during deployment?
 - Are there any breaking changes to the context API?
@@ -56,25 +56,25 @@ Grill the developer on database changes:
 
 Prove the LiveView handles all cases:
 
-**Event Coverage**
+#### Event Coverage
 
 - List every `handle_event` clause and expected socket state
 - What happens if socket assigns are missing when event fires?
 - Are there race conditions between user events and server pushes?
 
-**PubSub Handling**
+#### PubSub Handling
 
 - List every `handle_info` clause and when it's triggered
 - Do all PubSub subscriptions have corresponding handlers?
 - What happens if a message arrives before mount completes?
 
-**State Transitions**
+#### State Transitions
 
 - Show the event → handler → state transition table
 - Are all error states handled gracefully?
 - What's the recovery path from each error state?
 
-**Memory & Performance**
+#### Memory & Performance
 
 - Are large lists using streams?
 - Is transient data using temporary_assigns?
@@ -84,7 +84,7 @@ Prove the LiveView handles all cases:
 
 Senior engineer review checklist:
 
-**Must Pass**
+#### Must Pass
 
 - [ ] No direct Repo calls in controllers/LiveViews
 - [ ] All Ecto queries use explicit preloads
@@ -93,19 +93,19 @@ Senior engineer review checklist:
 - [ ] Error cases handled (not just happy path)
 - [ ] Tests cover new functionality
 
-**Performance**
+#### Performance
 
 - [ ] No queries in Enum.map loops
 - [ ] LiveView streams for lists > 100 items
 - [ ] Indexes exist for WHERE clause columns
 
-**OTP**
+#### OTP
 
 - [ ] GenServers have supervision
 - [ ] Timeouts set for GenServer.call
 - [ ] No unbounded process spawning
 
-**Security**
+#### Security
 
 - [ ] No SQL injection via raw queries
 - [ ] No path traversal in file handling

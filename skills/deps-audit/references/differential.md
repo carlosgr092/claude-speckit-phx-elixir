@@ -26,7 +26,7 @@ output stream.
 
 ## Architecture
 
-```
+```text
 Phase 1 engine:    bash rules → findings.jsonl  on NEW
 
 Phase 2 engine:    bash rules → findings.jsonl       on NEW

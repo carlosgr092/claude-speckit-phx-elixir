@@ -20,7 +20,7 @@ Reference for designing and implementing Phoenix contexts (bounded contexts).
 
 ## Context Structure
 
-```
+```text
 lib/my_app/
 ├── accounts/           # Context directory
 │   ├── user.ex         # Schema

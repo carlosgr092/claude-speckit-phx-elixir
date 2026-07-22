@@ -18,7 +18,7 @@ gap with an interactive walkthrough.
 
 ## Usage
 
-```
+```text
 /spx:brief                                    # Latest plan
 /spx:brief specs/user-auth/plan.md    # Specific plan
 ```
@@ -110,7 +110,7 @@ See `${CLAUDE_SKILL_DIR}/references/briefing-guide.md` for section content templ
 
 After final section (or when user stops):
 
-```
+```text
 That's the briefing! For full details, see:
 {plan_path}
 
@@ -119,7 +119,7 @@ Ready to proceed? Try `/spx:implement {plan_path}` to start execution.
 
 Post-work variant:
 
-```
+```text
 That's what was built! For full details, see:
 {plan_path}
 

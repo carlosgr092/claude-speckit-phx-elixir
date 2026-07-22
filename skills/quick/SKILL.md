@@ -106,7 +106,7 @@ Skip the planning ceremony. Get working code fast.
 
 If quick mode hits complexity:
 
-```
+```text
 This needs more planning. Switching to normal mode.
 Run /spx:plan [task] for full analysis.
 ```
@@ -120,7 +120,7 @@ run `mix ecto.migrate`. Then run `mix test test/path_test.exs` for affected test
 
 ## Example Session
 
-```
+```text
 User: /spx:quick Add archived_at timestamp to posts
 
 Claude:

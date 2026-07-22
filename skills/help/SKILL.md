@@ -11,7 +11,7 @@ Helps users find the right command, skill, or agent for their situation.
 
 ## Usage
 
-```
+```text
 /spx:help                          # Analyze context, suggest commands
 /spx:help how do I debug this?     # Route to /spx:investigate
 /spx:help add a new feature        # Route to /spx:specify -> ... -> /spx:implement

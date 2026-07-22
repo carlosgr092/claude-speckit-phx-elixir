@@ -50,7 +50,7 @@ At review start, if `.claude/conventions.md` exists:
 
 After presenting review findings (Step 5), offer:
 
-```
+```text
 Any findings to convert to conventions?
 - SUPPRESS: "We do this intentionally, stop flagging it"
 - ENFORCE: "This should always be done this way going forward"

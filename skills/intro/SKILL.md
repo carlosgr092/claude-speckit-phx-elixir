@@ -53,7 +53,7 @@ For each section:
 
 After Section 6 (or when user stops):
 
-```
+```text
 You're all set! Try `/spx:specify` with your next feature to start the spec-driven spine.
 Run `/spx:intro --section N` anytime to revisit a specific section.
 ```

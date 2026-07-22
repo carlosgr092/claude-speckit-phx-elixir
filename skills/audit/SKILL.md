@@ -11,7 +11,7 @@ Comprehensive project-wide health assessment using 5 parallel specialist subagen
 
 ## Usage
 
-```
+```text
 /spx:audit              # Full audit (default)
 /spx:audit --quick      # 2-3 minute pulse check
 /spx:audit --focus=security   # Deep dive single area
@@ -54,7 +54,7 @@ through to `general-purpose` (Opus by default):
 
 **Create Claude Code tasks** for real-time progress visibility:
 
-```
+```text
 For each auditor:
   TaskCreate({subject: "{Area} audit", activeForm: "Auditing {area}..."})
   TaskUpdate({taskId, status: "in_progress"})
@@ -64,7 +64,7 @@ Then spawn all 5 agents with Agent tool (parallel). Route to declared-model
 specialists where they exist, keep `general-purpose` only where no specialist
 covers the audit category:
 
-```
+```text
 Agent(subagent_type: "phoenix-patterns-analyst", prompt: "Architecture audit: analyze module structure, context boundaries, coupling, cohesion. Write findings to .claude/audit/reports/arch-review.md", run_in_background: true)
 Agent(subagent_type: "general-purpose",          prompt: "Performance audit: N+1 queries, missing indexes, bottlenecks, scalability. Write findings to .claude/audit/reports/perf-audit.md", run_in_background: true)
 Agent(subagent_type: "security-analyzer",        prompt: "Security audit: OWASP scan, auth patterns, secret leakage. Write findings to .claude/audit/reports/security-audit.md", run_in_background: true)
@@ -103,7 +103,7 @@ user typing "continue" against dead agents.
 
 After all 5 auditors complete, spawn context-supervisor:
 
-```
+```text
 Agent(subagent_type: "context-supervisor", prompt: """
 Compress audit findings.
 Input: .claude/audit/reports/

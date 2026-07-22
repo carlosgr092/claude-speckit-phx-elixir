@@ -7,7 +7,7 @@ Two outputs from every audit:
 
 ## Scoring weights & risk bands
 
-```
+```text
 BLOCK = 10 points
 WARN  =  3 points
 INFO  =  1 point
@@ -42,7 +42,7 @@ dogfood revealed was missing.
 
 ### Render order
 
-```
+```text
 1. (BLOCK headline)    introduced + still_exposed CVEs    ← if any
 2. (INFO  headline)    patched CVEs (the security changelog)
 3.                     existing markdown table

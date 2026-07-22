@@ -11,7 +11,7 @@ Generate documentation for newly implemented features.
 
 ## Usage
 
-```
+```text
 /spx:document specs/magic-link-auth/plan.md
 /spx:document magic link authentication
 /spx:document  # Auto-detect from recent plan

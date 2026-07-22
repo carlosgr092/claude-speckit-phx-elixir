@@ -62,7 +62,7 @@ Read `mix.exs` and extract:
 
 Report discovery:
 
-```
+```text
 Project tools: compile ✓ | format ✓ | credo ✓/✗ | dialyzer ✓/✗ | sobelow ✓/✗ | ex_check ✓/✗
 Test commands: mix test (unit) | mix playwright.test (E2E, MIX_ENV=int_test)
 Composite runner: mix check (.check.exs) — or "none found"
@@ -96,7 +96,7 @@ Skip unavailable tools: "Credo: ⏭ Not installed"
 
 After core passes, list discovered additional test commands:
 
-```
+```text
 Core verification passed. Additional test commands available:
 1. mix playwright.test (E2E, MIX_ENV=int_test) — full setup + tests
 2. mix playwright.run (E2E fast — skips setup)

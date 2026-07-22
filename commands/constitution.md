@@ -37,7 +37,8 @@ Resolution order:
 For each enabled hook (treat a missing `enabled` field as enabled; skip hooks with `enabled: false`; do not evaluate non-empty `condition` expressions — defer those to the HookExecutor):
 
 - **Mandatory hook** (`optional: false`):
-  ```
+
+  ```text
   ## Extension Hooks
 
   **Automatic Pre-Hook**: git
@@ -46,6 +47,7 @@ For each enabled hook (treat a missing `enabled` field as enabled; skip hooks wi
 
   Wait for the result of the hook command before proceeding to the Outline.
   ```
+
   After emitting the block above you MUST actually invoke `/spx:git-init` and wait for it to finish before continuing.
 - **Optional hook** (`optional: true`): emit an offer block naming `/spx:git-init` and its prompt; run it only if the user accepts.
 
@@ -134,7 +136,8 @@ Formatting & Style: use Markdown headings exactly as in the template (no level d
 Resolve `hooks.after_constitution` the same way as the Pre-Execution section (`.specify/extensions.yml` overrides; otherwise the inline default from `templates/extensions.yml`). Inline default: one **optional** (`optional: true`) hook — `speckit.git.commit` → `/spx:git-commit`.
 
 - **Optional hook**: emit an offer block —
-  ```
+
+  ```text
   ## Extension Hooks
 
   **Optional Hook**: git
@@ -144,6 +147,7 @@ Resolve `hooks.after_constitution` the same way as the Pre-Execution section (`.
   Prompt: Commit constitution changes?
   To execute: `/spx:git-commit`
   ```
+
   Run `/spx:git-commit` only if the user accepts.
 - **Mandatory hook** (`optional: false`): emit `EXECUTE_COMMAND: {command}`, then actually invoke it and wait.
 

@@ -45,6 +45,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 ## Pre-Execution Checks
 
 **Check for extension hooks (before checklist generation)**:
+
 - Check if `.specify/extensions.yml` exists in the project root.
 - If it exists, read it and look for entries under the `hooks.before_checklist` key
 - If the YAML cannot be parsed or is invalid, skip hook checking silently and continue normally
@@ -55,7 +56,8 @@ You **MUST** consider the user input before proceeding (if not empty).
 - When constructing the slash command from a hook command id, map it to its `/spx:*` command: `speckit.git.commit` -> `/spx:git-commit`, `speckit.git.feature` -> `/spx:git-feature`, `speckit.git.initialize` -> `/spx:git-init`, `speckit.agent-context.update` -> `/spx:agent-context`.
 - For each executable hook, output the following based on its `optional` flag:
   - **Optional hook** (`optional: true`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Optional Pre-Hook**: {extension}
@@ -65,8 +67,10 @@ You **MUST** consider the user input before proceeding (if not empty).
     Prompt: {prompt}
     To execute: `/{command}`
     ```
+
   - **Mandatory hook** (`optional: false`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Automatic Pre-Hook**: {extension}
@@ -75,6 +79,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
     Wait for the result of the hook command before proceeding to the Execution Steps.
     ```
+
     After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing.
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently
 
@@ -262,29 +267,33 @@ You **MUST** consider the user input before proceeding (if not empty).
    `challenge` question sets, restated as English unit tests.
 
    **Security** (`security.md`) — theme signals: auth, session, login, token, RBAC, scope:
-   - "Is the authorization boundary specified for every LiveView `handle_event`, not only for mount? [Coverage, Gap]"
-   - "Is the data-access scope (e.g., `current_scope`) requirement stated for every read/write path? [Completeness]"
-   - "Are input-validation requirements defined for all user-supplied params (no `String.to_atom` on user input)? [Completeness, Gap]"
-   - "Are requirements explicit that untrusted content is never rendered via `raw/1`? [Clarity]"
-   - "Are session/CSRF and rate-limiting requirements quantified with thresholds? [Clarity, Gap]"
-   - "Are breach/failure-response requirements defined? [Gap, Exception Flow]"
+
+- "Is the authorization boundary specified for every LiveView `handle_event`, not only for mount? [Coverage, Gap]"
+- "Is the data-access scope (e.g., `current_scope`) requirement stated for every read/write path? [Completeness]"
+- "Are input-validation requirements defined for all user-supplied params (no `String.to_atom` on user input)? [Completeness, Gap]"
+- "Are requirements explicit that untrusted content is never rendered via `raw/1`? [Clarity]"
+- "Are session/CSRF and rate-limiting requirements quantified with thresholds? [Clarity, Gap]"
+- "Are breach/failure-response requirements defined? [Gap, Exception Flow]"
 
    **Deploy** (`deploy.md`) — theme signals: release, Docker, fly.toml, runtime.exs, migration:
-   - "Are production migration-safety requirements specified (no table-locking operations under load)? [Completeness, Gap]"
-   - "Are rolling-deploy compatibility requirements defined (old code against new schema)? [Coverage]"
-   - "Are runtime configuration and secret-sourcing requirements documented for prod? [Completeness]"
-   - "Are health-check and rollback requirements defined for the release? [Gap]"
+
+- "Are production migration-safety requirements specified (no table-locking operations under load)? [Completeness, Gap]"
+- "Are rolling-deploy compatibility requirements defined (old code against new schema)? [Coverage]"
+- "Are runtime configuration and secret-sourcing requirements documented for prod? [Completeness]"
+- "Are health-check and rollback requirements defined for the release? [Gap]"
 
    **Oban / background jobs** (`oban.md`) — theme signals: worker, job, queue, cron, async:
-   - "Is the idempotency requirement stated for every job (safe to retry)? [Completeness, Gap]"
-   - "Are job argument requirements specified as string-keyed, ID-only (no structs)? [Clarity]"
-   - "Are retry/backoff and uniqueness requirements quantified per queue? [Clarity, Gap]"
-   - "Are failure and dead-letter requirements defined? [Coverage, Exception Flow]"
+
+- "Is the idempotency requirement stated for every job (safe to retry)? [Completeness, Gap]"
+- "Are job argument requirements specified as string-keyed, ID-only (no structs)? [Clarity]"
+- "Are retry/backoff and uniqueness requirements quantified per queue? [Clarity, Gap]"
+- "Are failure and dead-letter requirements defined? [Coverage, Exception Flow]"
 
    **Boundaries / context design** (`boundaries.md`) — theme signals: context, module, coupling, cross-context:
-   - "Are cross-context call rules specified (web layer free of `Repo.`)? [Consistency, Gap]"
-   - "Is each context's public API boundary defined and are callers required to go through it? [Clarity]"
-   - "Are ownership requirements clear for shared entities referenced by multiple contexts? [Consistency]"
+
+- "Are cross-context call rules specified (web layer free of `Repo.`)? [Consistency, Gap]"
+- "Is each context's public API boundary defined and are callers required to go through it? [Clarity]"
+- "Are ownership requirements clear for shared entities referenced by multiple contexts? [Consistency]"
 <!-- ELIXIR-PHOENIX END -->
 
 7. **Structure Reference**: Generate the checklist following the canonical template in `${CLAUDE_PLUGIN_ROOT}/templates/checklist-template.md` for title, meta section, category headings, and ID formatting. If the template is unavailable, use: H1 title, purpose/created meta lines, `##` category sections containing `- [ ] CHK### <requirement item>` lines with globally incrementing IDs starting at CHK001.
@@ -381,6 +390,7 @@ Sample items:
 
 **Check for extension hooks (after checklist generation)**:
 Check if `.specify/extensions.yml` exists in the project root.
+
 - If it exists, read it and look for entries under the `hooks.after_checklist` key
 - If the YAML cannot be parsed or is invalid, skip hook checking silently and continue normally
 - Filter out hooks where `enabled` is explicitly `false`. Treat hooks without an `enabled` field as enabled by default.
@@ -390,7 +400,8 @@ Check if `.specify/extensions.yml` exists in the project root.
 - When constructing the slash command from a hook command id, map it to its `/spx:*` command (see the mapping in Pre-Execution Checks).
 - For each executable hook, output the following based on its `optional` flag:
   - **Optional hook** (`optional: true`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Optional Hook**: {extension}
@@ -400,13 +411,16 @@ Check if `.specify/extensions.yml` exists in the project root.
     Prompt: {prompt}
     To execute: `/{command}`
     ```
+
   - **Mandatory hook** (`optional: false`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Automatic Hook**: {extension}
     Executing: `/{command}`
     EXECUTE_COMMAND: {command}
     ```
+
     After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing.
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently

@@ -23,7 +23,8 @@ You **MUST** consider the user input before proceeding (if not empty).
 This command wires the `before_clarify` hook from `${CLAUDE_PLUGIN_ROOT}/templates/extensions.yml`. Mapping: `speckit.git.commit` → `/spx:git-commit`. Resolution: `.specify/extensions.yml` `hooks.before_clarify` overrides the inline default (skip silently on parse failure). Inline default: one **optional** (`optional: true`) hook — `speckit.git.commit`.
 
 - **Optional hook**: emit an offer block —
-  ```
+
+  ```text
   ## Extension Hooks
 
   **Optional Pre-Hook**: git
@@ -33,6 +34,7 @@ This command wires the `before_clarify` hook from `${CLAUDE_PLUGIN_ROOT}/templat
   Prompt: Commit outstanding changes before clarification?
   To execute: `/spx:git-commit`
   ```
+
   Run `/spx:git-commit` only if accepted.
 - Treat missing `enabled` as enabled; skip `enabled: false`; do not evaluate non-empty `condition`. For a **mandatory** hook, emit `EXECUTE_COMMAND:` and actually invoke it before the Outline. Skip silently if nothing is registered and `.specify/extensions.yml` is absent.
 
@@ -119,7 +121,7 @@ Context for prioritization: `$ARGUMENTS`
 
 Resolve `hooks.after_clarify` (`.specify/extensions.yml` overrides, else inline default). Mapping: `speckit.git.commit` → `/spx:git-commit`. Inline default: one **optional** (`optional: true`) hook —
 
-```
+```text
 ## Extension Hooks
 
 **Optional Hook**: git
@@ -135,6 +137,7 @@ Run `/spx:git-commit` only if accepted. For a mandatory hook, emit `EXECUTE_COMM
 ## Completion Report
 
 Report (after the loop ends or on early termination):
+
 - Number of questions asked & answered.
 - Path to the updated spec.
 - Sections touched (list names).

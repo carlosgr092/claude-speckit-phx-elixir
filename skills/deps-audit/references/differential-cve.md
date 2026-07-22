@@ -15,7 +15,7 @@ turns that into a security changelog.
 
 ## Architecture
 
-```
+```text
 mix_audit_diff (references/external-tools.md)
   ├─► run mix_audit against OLD mix.lock → cves_old.json
   └─► run mix_audit against NEW mix.lock → cves_new.json

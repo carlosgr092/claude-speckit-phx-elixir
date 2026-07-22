@@ -207,7 +207,7 @@ def handle(:stop), do: ...
 
 1. ...
 
-```
+```text
 
 Do NOT include "What's Good" sections — only report issues found.
 Positive feedback wastes tokens for zero actionable value.
@@ -333,7 +333,7 @@ For large or critical changes, spawn `parallel-reviewer` for thorough multi-aspe
 | Security-sensitive code | ❌ | ✅ |
 | "Thorough review please" | ❌ | ✅ |
 
-```
+```text
 Agent(subagent_type: "parallel-reviewer", prompt: "Thorough review of: {files_or_diff}")
 ```
 

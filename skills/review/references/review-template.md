@@ -93,7 +93,7 @@ How would you like to proceed?
 - `/spx:implement` — Fix directly (for simple, clear fixes)
 - I'll handle it myself
 
-```
+```text
 
 ## Verdict Decision Rules
 

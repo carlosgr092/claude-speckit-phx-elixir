@@ -112,7 +112,7 @@ mix hex.outdated 2>&1
 
 ## Overall Score Calculation
 
-```
+```text
 overall_score = (
   architecture_score * 0.20 +
   performance_score * 0.25 +
@@ -130,7 +130,7 @@ overall_score = (
 
 ## Grade Assignment
 
-```
+```text
 if overall_score >= 90: grade = "A"
 elif overall_score >= 80: grade = "B"
 elif overall_score >= 70: grade = "C"

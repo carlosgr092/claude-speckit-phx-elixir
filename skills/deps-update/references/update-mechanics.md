@@ -7,7 +7,7 @@ Verified against Hex 2.4.2 / Elixir 1.20 (2026-06).
 There is NO JSON output — parse the fixed-width text table (split on 2+
 spaces), tolerating the trailing "Run `mix hex.outdated APP`..." footer:
 
-```
+```text
 Dependency  Only  Current  Latest  Status
 decimal           2.4.1    3.1.1   Update not possible
 jason             1.4.5    1.4.5   Up-to-date
@@ -26,7 +26,7 @@ major (X.y.z).
 
 ## Why is a bump blocked? (per-package mode)
 
-```
+```text
 $ mix hex.outdated decimal
 There is newer version of the dependency available 3.1.1 > 2.4.1!
 Source   Requirement                 Up-to-date

@@ -43,7 +43,7 @@ Reference for writing idiomatic Elixir code with BEAM-aware patterns.
 
 ### Control Flow
 
-```
+```text
 Need patterns? → case (or function heads)
 Multiple operations? → with
 Boolean conditions? → cond (multiple) or if (single)
@@ -51,7 +51,7 @@ Boolean conditions? → cond (multiple) or if (single)
 
 ### Error Handling
 
-```
+```text
 Expected failure? → {:ok, _}/{:error, _} tuples
 Unexpected/bug? → raise exception (let supervisor handle)
 External library? → rescue (only here!)
@@ -59,7 +59,7 @@ External library? → rescue (only here!)
 
 ### OTP
 
-```
+```text
 Need state?
 ├─ No → Plain functions
 ├─ Simple get/update → Agent or ETS

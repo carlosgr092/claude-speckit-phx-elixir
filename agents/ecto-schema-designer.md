@@ -184,7 +184,7 @@ end
 
 ## Relationships Diagram
 
-```
+```text
 User 1--* Entity *--1 Category
          |
          *--* Tag (through entity_tags)
@@ -255,7 +255,7 @@ end
       including soft-deleted rows (`deleted_at IS NOT NULL`), which
       silently block the migration
 
-```
+```text
 
 ## Ecto Best Practices
 

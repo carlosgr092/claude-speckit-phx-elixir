@@ -73,7 +73,7 @@ See `${CLAUDE_SKILL_DIR}/references/diff-resolver.md` for shell + `mix run -e` s
 
 For each `(pkg, old, new)`:
 
-```
+```text
 mix hex.package fetch <pkg> <old> --unpack -o ${AUDIT_TMPDIR}/tarballs/<pkg>/<old>/
 mix hex.package fetch <pkg> <new> --unpack -o ${AUDIT_TMPDIR}/tarballs/<pkg>/<new>/
 ```

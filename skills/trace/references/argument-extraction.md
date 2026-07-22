@@ -175,7 +175,7 @@ HTTP Request → params["id"] → DB Query → user
 → params["user"] → attrs
 → update_user(user, attrs)
 
-```
+```text
 ```
 
 ## Key Patterns to Flag

@@ -39,7 +39,7 @@ You receive either:
 
 Run 1-2 targeted searches:
 
-```
+```text
 WebSearch(query: "{5-10 word focused query} site:elixirforum.com OR site:hexdocs.pm")
 ```
 
@@ -58,7 +58,7 @@ Use source-specific extraction prompts to minimize token waste:
 
 **ElixirForum** (`elixirforum.com/t/`):
 
-```
+```text
 WebFetch(url: "...", prompt: "Extract ONLY: (1) problem statement,
 (2) accepted/highest-voted solution with code, (3) gotchas mentioned.
 Skip greetings, thanks, off-topic replies.")
@@ -66,7 +66,7 @@ Skip greetings, thanks, off-topic replies.")
 
 **HexDocs** (`hexdocs.pm/`):
 
-```
+```text
 WebFetch(url: "...", prompt: "Extract ONLY: module purpose (1 sentence),
 key function signatures with @spec types, and ONE usage example per
 function. Skip installation, license, links to other modules.")
@@ -74,7 +74,7 @@ function. Skip installation, license, links to other modules.")
 
 **GitHub Issues** (`github.com/.../issues/`):
 
-```
+```text
 WebFetch(url: "...", prompt: "Extract: issue title, root cause if
 identified, and resolution/workaround. Skip bot comments, CI logs,
 'me too' replies.")
@@ -82,14 +82,14 @@ identified, and resolution/workaround. Skip bot comments, CI logs,
 
 **GitHub Discussions** (`github.com/.../discussions/`):
 
-```
+```text
 WebFetch(url: "...", prompt: "Extract: question, accepted answer with
 code, and important follow-ups. Skip reactions and off-topic.")
 ```
 
 **Blogs** (fly.io, dashbit.co, etc.):
 
-```
+```text
 WebFetch(url: "...", prompt: "Extract: main technique/pattern, all code
 examples, and warnings. Skip author bio, navigation, ads, related posts.")
 ```
@@ -137,7 +137,7 @@ Return **500-800 words max**. Do NOT dump full page contents.
 
 {Source A [T1] says X, Source B [T3] says Y. Trust A because authoritative.}
 
-```
+```text
 
 ## Source Priority
 

@@ -46,7 +46,7 @@ Understanding these fundamentals explains WHY patterns exist:
 
 ## Decision Tree
 
-```
+```text
 Need to maintain state?
 ├─ No → Use plain functions
 └─ Yes

@@ -30,7 +30,7 @@ Suggest visual rendering when ANY of these apply:
 At the end of Section 3 (Solution Shape / How It Was Built), if
 complexity thresholds are met, add:
 
-```
+```text
 This plan has {N} phases with cross-dependencies.
 Want a visual diagram? Try: `/generate-visual-plan`
 (requires visual-explainer skill)

@@ -4,7 +4,7 @@ Use this template when creating solution documentation in `.claude/solutions/`.
 
 ## Filename Convention
 
-```
+```text
 {sanitized-symptom}-{module}-{YYYYMMDD}.md
 ```
 

@@ -15,7 +15,7 @@ LiveView uses morphdom for DOM patching. Third-party JS libraries that manage th
 
 ## The Core Problem
 
-```
+```text
 LiveView Server                    Browser DOM
      │                                  │
      │  sends diff ──────────────────►  │
@@ -278,7 +278,7 @@ end
 
 ## Decision Tree
 
-```
+```text
 Is your JS library managing DOM state?
 │
 ├─ NO → Normal LiveView, no special handling

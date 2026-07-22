@@ -20,7 +20,7 @@ Interactive interview → research → synthesis loop. Produces structured
 
 ## Workflow
 
-```
+```text
 /spx:brainstorm {topic}
     |
     v
@@ -131,7 +131,7 @@ See `${CLAUDE_SKILL_DIR}/references/research-integration.md` for details.
 
 ## Integration
 
-```
+```text
 /spx:brainstorm ──→ interview.md ──→ /spx:plan (skips clarification)
                                  ──→ /spx:plan --existing (deepens)
                                  ──→ stored for later session

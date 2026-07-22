@@ -24,6 +24,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 ## Pre-Execution Checks
 
 **Check for extension hooks (before implementation)**:
+
 - Check if `.specify/extensions.yml` exists in the project root.
 - If it exists, read it and look for entries under the `hooks.before_implement` key
 - If the YAML cannot be parsed or is invalid, skip hook checking silently and continue normally
@@ -34,7 +35,8 @@ You **MUST** consider the user input before proceeding (if not empty).
 - When constructing the slash command from a hook command id, map it to its `/spx:*` command: `speckit.git.commit` -> `/spx:git-commit`, `speckit.git.feature` -> `/spx:git-feature`, `speckit.git.initialize` -> `/spx:git-init`, `speckit.agent-context.update` -> `/spx:agent-context`.
 - For each executable hook, output the following based on its `optional` flag:
   - **Optional hook** (`optional: true`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Optional Pre-Hook**: {extension}
@@ -44,8 +46,10 @@ You **MUST** consider the user input before proceeding (if not empty).
     Prompt: {prompt}
     To execute: `/{command}`
     ```
+
   - **Mandatory hook** (`optional: false`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Automatic Pre-Hook**: {extension}
@@ -54,6 +58,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
     Wait for the result of the hook command before proceeding to the Outline.
     ```
+
     After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing.
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently
 
@@ -227,15 +232,16 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 <!-- ELIXIR-PHOENIX START -->
 12. **Elixir/Phoenix Verification Gate (when `mix.exs` exists — Constitution Principle VI; SKIP under `--lean`)**:
-   - After each completed task group, for the affected app(s) run `mix format`, `mix compile --warnings-as-errors`, and `mix test`. Halt the group on failure and fix before proceeding.
-   - At phase checkpoints, spawn `subagent_type: "claude-speckit-phx-elixir:verification-runner"` (it discovers credo, dialyzer, sobelow, and custom aliases from `mix.exs`) and resolve what it reports.
-   - Before marking the feature DONE, spawn `subagent_type: "claude-speckit-phx-elixir:parallel-reviewer"` (tests + security + Ecto + LiveView), writing to `FEATURE_DIR/reviews/`. Treat any Constitution MUST violation it finds as blocking.
-   - While coding: keep the web layer (`lib/*_web`) free of `Repo.` (Principle II) and enforce the data-access scope (e.g., `current_scope`) on every data access (Principle I).
+
+- After each completed task group, for the affected app(s) run `mix format`, `mix compile --warnings-as-errors`, and `mix test`. Halt the group on failure and fix before proceeding.
+- At phase checkpoints, spawn `subagent_type: "claude-speckit-phx-elixir:verification-runner"` (it discovers credo, dialyzer, sobelow, and custom aliases from `mix.exs`) and resolve what it reports.
+- Before marking the feature DONE, spawn `subagent_type: "claude-speckit-phx-elixir:parallel-reviewer"` (tests + security + Ecto + LiveView), writing to `FEATURE_DIR/reviews/`. Treat any Constitution MUST violation it finds as blocking.
+- While coding: keep the web layer (`lib/*_web`) free of `Repo.` (Principle II) and enforce the data-access scope (e.g., `current_scope`) on every data access (Principle I).
 <!-- ELIXIR-PHOENIX END -->
 
 13. **Review triage (after the Verification Gate; SKIP under `--lean`)**: if the parallel-reviewer produced findings, compress them first — spawn `subagent_type: "claude-speckit-phx-elixir:context-supervisor"` to read `FEATURE_DIR/reviews/` and write `FEATURE_DIR/summaries/review-consolidated.md`; read only that. Categorize by severity (BLOCKER, WARNING, SUGGESTION). If blockers exist, present them via `AskUserQuestion` with `multiSelect: true`, severity shortcuts first:
 
-    ```
+    ```text
     AskUserQuestion:
       question: "Review found these issues. Which do you want to fix?"
       header: "Findings"
@@ -252,10 +258,11 @@ You **MUST** consider the user input before proceeding (if not empty).
     Max 4 options per call (2 for severity shortcuts, 2 for individual findings); batch the rest into follow-up calls. Create fix tasks ONLY for selected findings, apply them, then re-run the affected verification tier. Never auto-proceed to another `/spx:*` phase — report and stop.
 
 14. **Git protocol** (only when the repo is a git repo; commits are offered, not forced — mirrors the optional git-commit hooks):
-   - **Stage SPECIFIC files only — NEVER `git add -A` or `git add .`**.
-   - **Per phase** (not per task): offer a commit with a phase summary, e.g. `git add <files>` then `git commit -m "feat(<slug>): complete Phase N - <name>"`.
-   - **Before human intervention** (BLOCKER): offer to commit the working state so it isn't lost.
-   - Leave the final commit decision to the user. Follow the project's commit conventions; do not add tool attribution to commit messages.
+
+- **Stage SPECIFIC files only — NEVER `git add -A` or `git add .`**.
+- **Per phase** (not per task): offer a commit with a phase summary, e.g. `git add <files>` then `git commit -m "feat(<slug>): complete Phase N - <name>"`.
+- **Before human intervention** (BLOCKER): offer to commit the working state so it isn't lost.
+- Leave the final commit decision to the user. Follow the project's commit conventions; do not add tool attribution to commit messages.
 
 ## Resume rules
 
@@ -267,15 +274,17 @@ You **MUST** consider the user input before proceeding (if not empty).
 ## Context-exhaustion playbook
 
 For long features (>10 tasks) that risk compaction:
+
 - The inline implementation notes on each `[X]` task and the `FEATURE_DIR/scratchpad.md` HANDOFF/DEAD-END entries are the durable memory — always write them.
 - On resume after compaction, re-read tasks.md + scratchpad.md BEFORE writing any code.
 - If a feature is too large, suggest splitting it (re-run `/spx:tasks` or `/spx:plan`) rather than pushing through a single overloaded run.
 
 15. Completion validation:
-   - Verify all required tasks are completed and marked `[X]`
-   - Check that implemented features match the original specification
-   - Validate that tests pass and coverage meets requirements
-   - Confirm the implementation follows the technical plan
+
+- Verify all required tasks are completed and marked `[X]`
+- Check that implemented features match the original specification
+- Validate that tests pass and coverage meets requirements
+- Confirm the implementation follows the technical plan
 
 Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `/spx:tasks` first to regenerate the task list.
 
@@ -284,6 +293,7 @@ Note: This command assumes a complete task breakdown exists in tasks.md. If task
 **You MUST complete this section before reporting completion to the user.**
 
 Check if `.specify/extensions.yml` exists in the project root.
+
 - If it does not exist, or no hooks are registered under `hooks.after_implement`, skip to the Completion Report.
 - If it exists, read it and look for entries under the `hooks.after_implement` key.
 - If the YAML cannot be parsed or is invalid, skip hook checking silently and continue to the Completion Report.
@@ -294,16 +304,19 @@ Check if `.specify/extensions.yml` exists in the project root.
 - When constructing the slash command from a hook command id, map it to its `/spx:*` command (see the mapping in Pre-Execution Checks).
 - For each executable hook, output the following based on its `optional` flag:
   - **Mandatory hook** (`optional: false`) — **You MUST emit `EXECUTE_COMMAND:` for each mandatory hook**:
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Automatic Hook**: {extension}
     Executing: `/{command}`
     EXECUTE_COMMAND: {command}
     ```
+
     After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing.
   - **Optional hook** (`optional: true`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Optional Hook**: {extension}

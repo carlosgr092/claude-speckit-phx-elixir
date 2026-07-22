@@ -13,7 +13,7 @@ build state must stay untouched. If the user explicitly requests an
 install, respond with the exact command for them to run, then continue
 the audit with `mix_audit` skipped:
 
-```
+```text
 I can't install mix_audit — the audit skill is non-mutating and won't
 modify mix.exs/mix.lock. Run this yourself, then re-invoke me:
 
@@ -42,7 +42,7 @@ hex_audit() {
 
 Output format (line per retirement):
 
-```
+```text
 phoenix_html 2.14.3
   Reason: invalid
   Message: Upgrade to 4.x for new HTML escaping API

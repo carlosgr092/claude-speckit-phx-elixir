@@ -53,7 +53,7 @@ If the quick check finds it, report and stop. No need for parallel tracks on obv
 
 **Prompt template**:
 
-```
+```text
 You are investigating bug reproduction for: {bug_description}
 
 Your task:
@@ -91,7 +91,7 @@ Output format:
 
 **Prompt template**:
 
-```
+```text
 You are investigating root cause for: {bug_description}
 
 Your task:
@@ -131,7 +131,7 @@ file:line + code snippet
 
 **Prompt template**:
 
-```
+```text
 You are assessing impact for: {bug_description}
 
 Your task:
@@ -167,7 +167,7 @@ Output format:
 
 **Prompt template**:
 
-```
+```text
 You are designing fix strategy for: {bug_description}
 
 Your task:
@@ -211,7 +211,7 @@ mix compile --warnings-as-errors 2>&1 | head -50
 
 ### Phase 2: Spawn All 4 Subagents in Parallel
 
-```
+```text
 Agent(subagent_type: "general-purpose", prompt: "Reproduction track...", run_in_background: true)
 Agent(subagent_type: "general-purpose", prompt: "Root cause track...", run_in_background: true)
 Agent(subagent_type: "general-purpose", prompt: "Impact track...", run_in_background: true)
@@ -241,7 +241,7 @@ proceed while any subagent is still running.
 **When tracks wrote to `output_dir/tracks/`**, spawn a
 context-supervisor (haiku) to compress before synthesis:
 
-```
+```text
 Agent(subagent_type: "claude-speckit-phx-elixir:context-supervisor",
   prompt: "Compress investigation track outputs.
     input_dir: {output_dir}/tracks/
@@ -333,7 +333,7 @@ is PRIMARY, not supplementary. Auto-capture errors from `get_logs`
 before spawning tracks. Pass captured runtime context to ALL
 subagent prompts so they start with real data, not guesses.
 
-**Pre-Track: Auto-Capture (before spawning subagents)**
+### Pre-Track: Auto-Capture (before spawning subagents)
 
 Call these Tidewave MCP tools to gather runtime context:
 
@@ -342,7 +342,7 @@ Call these Tidewave MCP tools to gather runtime context:
 
 Parse captured errors and include in EVERY subagent prompt as:
 
-```
+```text
 Available runtime context:
 - Errors: {parsed error messages and stacktraces}
 - Warnings: {parsed warning messages}

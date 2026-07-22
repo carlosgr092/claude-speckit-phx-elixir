@@ -12,7 +12,7 @@ obvious, read errors literally.
 
 ## Usage
 
-```
+```text
 /spx:investigate Users can't log in after password reset
 /spx:investigate FunctionClauseError in UserController.show
 /spx:investigate Complex auth bug --parallel

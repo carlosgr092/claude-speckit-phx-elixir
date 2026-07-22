@@ -12,7 +12,7 @@ Efficiently fetch Elixir library documentation from hexdocs.pm using Claude Code
 
 When researching libraries, use `WebFetch`:
 
-```
+```text
 # Fetch library overview
 WebFetch(
   url: "https://hexdocs.pm/oban",
@@ -46,7 +46,7 @@ WebFetch automatically converts HTML to markdown and extracts relevant content:
 
 When evaluating libraries, fetch docs efficiently:
 
-```
+```text
 # Get library overview with focused extraction
 WebFetch(
   url: "https://hexdocs.pm/oban",
@@ -56,7 +56,7 @@ WebFetch(
 
 ## Common HexDocs URLs
 
-```
+```text
 # Library overview
 https://hexdocs.pm/{library}
 
@@ -76,7 +76,7 @@ https://hexdocs.pm/{library}/api-reference.html
 
 Use focused prompts for better extraction:
 
-```
+```text
 # For API docs
 prompt: "Extract all public function docs with @spec and examples"
 
@@ -96,7 +96,7 @@ WebFetch includes automatic 15-minute caching. When fetching the same URL multip
 
 For longer persistence, save to planning directory:
 
-```
+```text
 # After fetching, write the result to a file
 Write(
   file_path: "specs/{slug}/research/docs/oban.md",
@@ -108,7 +108,7 @@ Write(
 
 If Tidewave MCP is available, prefer `mcp__tidewave__get_docs` for exact version-matched documentation:
 
-```
+```text
 mcp__tidewave__get_docs(module: "Oban.Worker")
 ```
 

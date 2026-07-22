@@ -31,7 +31,7 @@ completed or in progress).
 Wrap each section in a distinctive briefing block so output is
 visually distinct from normal conversation:
 
-```
+```text
 `★ Briefing ── {Section Title} ───────────────────`
 
 {section content — tables, bullets, etc.}

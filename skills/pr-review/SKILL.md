@@ -13,7 +13,7 @@ threads drop out automatically.
 
 ## Usage
 
-```
+```text
 /spx:pr-review 42                  # Triage unresolved threads on PR #42
 /spx:pr-review 42 --fix            # Triage + apply approved code fixes
 /spx:pr-review https://...         # Full URL also works (repo parsed from URL)

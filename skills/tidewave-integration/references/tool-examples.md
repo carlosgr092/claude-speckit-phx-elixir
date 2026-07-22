@@ -71,7 +71,7 @@ SELECT EXISTS (
 
 Best for: Looking up function signatures, module docs, exact API
 
-```
+```text
 # Module documentation
 Phoenix.LiveView
 
@@ -91,7 +91,7 @@ Ecto.Schema.belongs_to/3
 
 Best for: Locating modules, finding implementations
 
-```
+```text
 # Find module
 MyApp.Accounts
 
@@ -111,7 +111,7 @@ Returns: `{:ok, %{file: "lib/my_app/accounts.ex", line: 15}}`
 
 Best for: Understanding existing schemas, checking fields/associations
 
-```
+```text
 # All schemas (no filter)
 
 # Filter by name
@@ -127,7 +127,7 @@ Returns: Schema definitions including fields, types, associations, source table
 
 Best for: Debugging errors, tracing requests
 
-```
+```text
 # All recent logs (no filter)
 
 # Filter by level

@@ -5,7 +5,7 @@
 Built into Hex. Fetches both tarballs, unpacks, runs `git diff --no-index`.
 The `CHANGELOG.md` hunk is the delta you want — no network parsing:
 
-```
+```text
 diff --git jason-1.4.4/CHANGELOG.md jason-1.4.5/CHANGELOG.md
 +## 1.4.5 (05.05.2026)
 +* Add support for Decimal 3.0

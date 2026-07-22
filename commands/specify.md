@@ -31,7 +31,8 @@ This command wires the `before_specify` hook from `${CLAUDE_PLUGIN_ROOT}/templat
 Resolution: if `.specify/extensions.yml` exists, its `hooks.before_specify` entries override the inline default (skip silently on parse failure). Inline default: one **mandatory** (`optional: false`) hook — `speckit.git.feature`.
 
 - **Mandatory hook** (`optional: false`):
-  ```
+
+  ```text
   ## Extension Hooks
 
   **Automatic Pre-Hook**: git
@@ -40,6 +41,7 @@ Resolution: if `.specify/extensions.yml` exists, its `hooks.before_specify` entr
 
   Wait for the result of the hook command before proceeding to the Outline.
   ```
+
   After emitting the block, actually invoke `/spx:git-feature` and wait. It creates/switches to the feature branch and outputs JSON with `BRANCH_NAME` and `FEATURE_NUM`. If the user explicitly provided `GIT_BRANCH_NAME`, pass it through so the branch script uses that exact value.
 - Treat missing `enabled` as enabled; skip `enabled: false`; do not evaluate non-empty `condition`. If no hook is registered and `.specify/extensions.yml` is absent, still honor the inline default.
 
@@ -173,7 +175,7 @@ Resolve `hooks.after_specify` (from `.specify/extensions.yml` if present, else t
 
 **Autonomous / non-interactive default**: under `/spx:full` or when running as a subagent (no user to accept the prompt), SKIP optional hooks and log that they were offered — never block waiting for input. Mandatory hooks still run unconditionally. In interactive mode, for each enabled optional hook, emit an offer block and run it only if accepted:
 
-```
+```text
 ## Extension Hooks
 
 **Optional Hook**: git
@@ -184,7 +186,7 @@ Prompt: Commit specification changes?
 To execute: `/spx:git-commit`
 ```
 
-```
+```text
 ## Extension Hooks
 
 **Optional Hook**: agent-context
@@ -200,6 +202,7 @@ For any **mandatory** (`optional: false`) hook, emit `EXECUTE_COMMAND: {command}
 ## Completion Report
 
 Report completion with:
+
 - `SPECIFY_FEATURE_DIRECTORY` — the feature directory path
 - `SPEC_FILE` — the spec file path
 - Whether a brainstorm `interview.md` was consumed/relocated

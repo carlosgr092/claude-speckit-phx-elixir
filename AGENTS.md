@@ -35,7 +35,10 @@ convert them.
 Markdown must pass `markdownlint` against `.markdownlint.json`. That config turns off line
 length (`MD013`), allows inline HTML (`MD033`), does not require a top-level H1
 (`MD041`), scopes duplicate-heading checks to siblings (`MD024`), sets list indent to 2
-spaces (`MD007`), and relaxes ordered-list numbering (`MD029`). What still bites:
+spaces (`MD007`), relaxes ordered-list numbering (`MD029`), and disables two rules that
+fight intentional patterns — fence-style consistency (`MD048`, for the `~~~` wrappers that
+quote fenced examples) and unused-reference detection (`MD053`, for `[PLACEHOLDER]` tokens
+in templates). What still bites:
 
 - Increment headings by one level at a time (`MD001`); do not skip from `##` to `####`.
 - Surround headings, lists, and fenced code blocks with blank lines

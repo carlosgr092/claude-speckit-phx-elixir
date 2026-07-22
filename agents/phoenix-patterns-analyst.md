@@ -155,7 +155,7 @@ Write findings to the path specified in the orchestrator's prompt (typically `sp
 1. {convention derived from codebase}
 2. ...
 
-```
+```text
 
 ## Red Flags to Report
 

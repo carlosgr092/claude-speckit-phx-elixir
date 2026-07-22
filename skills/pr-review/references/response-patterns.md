@@ -8,25 +8,25 @@ Templates and patterns for responding to PR review comments.
 
 **Accepting a suggestion:**
 
-```
+```text
 Good catch! Updated to use {suggestion}. {Brief explanation of why it's better if not obvious.}
 ```
 
 **Accepting with modification:**
 
-```
+```text
 Agreed on the concern about {issue}. I went with {alternative} instead because {reason}. Let me know if you'd prefer your original suggestion.
 ```
 
 **Declining with explanation:**
 
-```
+```text
 Considered this, but {reason for current approach}. Specifically, {concrete detail — e.g., "this pattern avoids N+1 queries when the association is loaded"}. Happy to discuss further.
 ```
 
 **Iron Law conflict:**
 
-```
+```text
 This would violate Iron Law #{n}: {description}. The current code uses {pattern} to avoid {consequence}. See {reference} for the rationale.
 ```
 
@@ -34,13 +34,13 @@ This would violate Iron Law #{n}: {description}. The current code uses {pattern}
 
 **Explaining a decision:**
 
-```
+```text
 {Direct answer}. I chose this approach because {reason}. {Optional: alternative considered and why rejected.}
 ```
 
 **Explaining Elixir/Phoenix patterns:**
 
-```
+```text
 This uses {pattern name} — {1-sentence explanation}. In Phoenix, {brief context for why this is idiomatic}. See {HexDocs link} for more detail.
 ```
 
@@ -48,19 +48,19 @@ This uses {pattern name} — {1-sentence explanation}. In Phoenix, {brief contex
 
 **Quick acknowledgment:**
 
-```
+```text
 Fixed, thanks!
 ```
 
 **Style preference:**
 
-```
+```text
 Updated. I'll follow this convention going forward.
 ```
 
 **Disagreement on style (rare):**
 
-```
+```text
 I see the preference for {their style}. This codebase uses {current style} consistently in {examples}. Happy to align either way — what do you think?
 ```
 
@@ -68,13 +68,13 @@ I see the preference for {their style}. This codebase uses {current style} consi
 
 **Architecture trade-off:**
 
-```
+```text
 Good point about {concern}. Current approach optimizes for {priority}. The trade-off is {downside}. We could mitigate with {option} if it becomes an issue. Want me to open an issue to track?
 ```
 
 **Alternative suggestion:**
 
-```
+```text
 Interesting approach! Comparing:
 - Current: {pros/cons}
 - Suggested: {pros/cons}

@@ -26,13 +26,13 @@ help: ## Show this help
 
 lint: markdown yaml json shellcheck ## Run all linters (markdown, yaml, json, shell)
 
-markdown: ## Lint Markdown with markdownlint-cli2
-	@if command -v markdownlint-cli2 >/dev/null 2>&1; then \
-	  markdownlint-cli2 --config .markdownlint.json \
-	    '**/*.md' '!.sources/**' '!docs/build/**' '!docs/comprension/**' '!node_modules/**'; \
+markdown: ## Lint Markdown with markdownlint-cli2 (tracked *.md only, to match CI)
+	@files="$$(git ls-files '*.md')"; \
+	[ -n "$$files" ] || { echo "no tracked markdown"; exit 0; }; \
+	if command -v markdownlint-cli2 >/dev/null 2>&1; then \
+	  markdownlint-cli2 --config .markdownlint.json $$files; \
 	elif command -v npx >/dev/null 2>&1; then \
-	  npx --yes markdownlint-cli2 --config .markdownlint.json \
-	    '**/*.md' '!.sources/**' '!docs/build/**' '!docs/comprension/**' '!node_modules/**'; \
+	  npx --yes markdownlint-cli2@0.17.2 --config .markdownlint.json $$files; \
 	else \
 	  echo "SKIP markdown: install markdownlint-cli2 (npm i -g markdownlint-cli2)"; \
 	fi

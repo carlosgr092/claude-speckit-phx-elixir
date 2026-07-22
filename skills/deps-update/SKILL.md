@@ -13,7 +13,7 @@ stays in `/spx:deps-audit`; the vet ledger stays in `/spx:deps-vet`.
 
 ## Usage
 
-```
+```text
 /spx:deps-update                       # inventory + interactive scope pick
 /spx:deps-update --scope patch         # bundle all patch bumps, one PR
 /spx:deps-update --pkg phoenix_live_view   # one package (+ coupled group)

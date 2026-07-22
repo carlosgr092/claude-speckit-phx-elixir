@@ -48,7 +48,7 @@ end
 
 ## Navigation Decision Tree
 
-```
+```text
 Same LiveView, different params? → patch / push_patch
 Different LiveView, same live_session? → navigate / push_navigate
 Different live_session or non-LiveView? → href / redirect

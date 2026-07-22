@@ -40,7 +40,7 @@ Every agent prompt MUST include an explicit `output_file` path.
 
 Include this instruction block in every agent prompt:
 
-```
+```text
 output_file: specs/{slug}/reviews/{agent}.md
 
 CRITICAL: Write your findings to the output_file above. By turn ~12 at the
@@ -55,7 +55,7 @@ file IS the real output.
 Spawn `claude-speckit-phx-elixir:codex-reviewer` in the SAME parallel batch as the
 other agents with this prompt (plus the Standard Prompt Block above):
 
-```
+```text
 Run a Codex CLI review of this diff and normalize the findings.
 
 base_branch: {default branch, e.g. main}

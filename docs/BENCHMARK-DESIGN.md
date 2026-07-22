@@ -44,6 +44,7 @@ are recorded in the Pilot result section below.
 | D · Control | plain Claude Code, same model |
 
 **Task suite (3 tiers):**
+
 - N0 — MultiPL-E Elixir (off-the-shelf function-level sanity).
 - N1 — curated Phoenix features with a **pinned public-API contract** + hidden
   ExUnit tests. The contract makes arms comparable; the hidden tests are held out

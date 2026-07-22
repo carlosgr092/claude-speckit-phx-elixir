@@ -24,7 +24,7 @@ signal.
 
 ## Workflow States
 
-```
+```text
 INITIALIZING → SPECIFYING → CLARIFYING → PLANNING → TASKING → ANALYZING
      → IMPLEMENTING → VERIFYING → REVIEWING → CONVERGING → COMPOUNDING
                           ↑              │        ↑            │
@@ -186,7 +186,7 @@ Track state in the feature progress file at `specs/<feature>/progress.md`:
    invoked with `--codex` (codex-reviewer degrades to SKIPPED when the CLI is
    absent — never blocks):
 
-   ```
+   ```text
    Agent(subagent_type: "parallel-reviewer", prompt: """
    Review changes for feature '<feature>'.
    Requirements source: specs/<feature>/spec.md (then plan.md, tasks.md).
@@ -205,7 +205,7 @@ Track state in the feature progress file at `specs/<feature>/progress.md`:
 4. If blockers found, triage via `AskUserQuestion` with `multiSelect: true` —
    severity shortcuts first, then individual findings (max 4 options per call):
 
-   ```
+   ```text
    AskUserQuestion:
      question: "Review found these issues. Which do you want to fix?"
      header: "Findings"
@@ -260,7 +260,7 @@ be at 150k+ tokens by now).
 
 1. Spawn the compounding handoff:
 
-   ```
+   ```text
    Agent(subagent_type: "general-purpose", prompt: """
    Run the COMPOUNDING phase for feature '<feature>'.
 

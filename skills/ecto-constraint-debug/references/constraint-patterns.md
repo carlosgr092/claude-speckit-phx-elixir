@@ -155,7 +155,7 @@ Repo.all(from r in Record, where: r.unique_field == ^value)
 
 ### Trace with Tidewave (when available)
 
-```
+```text
 mcp__tidewave__execute_sql_query "SELECT * FROM table WHERE unique_col = 'value'"
 mcp__tidewave__project_eval "MyApp.Repo.all(from r in MyApp.Record, where: r.field == ^value)"
 ```

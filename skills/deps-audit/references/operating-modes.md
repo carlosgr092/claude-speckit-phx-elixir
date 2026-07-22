@@ -2,7 +2,7 @@
 
 The audit engine is **mode-agnostic**:
 
-```
+```text
 audit(pkg, old_version, new_version) → findings[]
 ```
 
@@ -11,7 +11,7 @@ inspects how the diff came to be.
 
 ## Mode B — Default (working vs HEAD)
 
-```
+```text
 /spx:deps-audit
 ```
 
@@ -32,7 +32,7 @@ still run.
 
 ## Mode C — PR / branch comparison
 
-```
+```text
 /spx:deps-audit --base main
 /spx:deps-audit --base origin/main
 /spx:deps-audit --base abc1234
@@ -52,7 +52,7 @@ Compares the working-tree `mix.lock` against `git show <ref>:mix.lock`.
 
 ## Mode A — Preview (locked vs Hex latest)
 
-```
+```text
 /spx:deps-audit --preview                 # all locked deps vs latest
 /spx:deps-audit --preview httpoison       # one package
 /spx:deps-audit --preview httpoison req   # multiple
