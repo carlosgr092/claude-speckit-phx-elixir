@@ -1,0 +1,55 @@
+name: Bug report
+description: Something in the plugin does not work as expected.
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report! Please fill in the details below. Running
+        `/spx:doctor` and pasting its output helps a lot.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what happened, and what did you expect?
+      placeholder: I ran /spx:plan and ...
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command
+      description: Which /spx:* command (or hook) triggered this?
+      placeholder: "/spx:implement"
+    validations:
+      required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Output of `/spx:doctor` if you can, plus versions.
+      value: |
+        - OS:
+        - Claude Code version:
+        - Plugin version:
+        - Elixir / Phoenix versions:
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output / logs
+      render: shell
+    validations:
+      required: false

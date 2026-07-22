@@ -1,0 +1,184 @@
+---
+name: spx:review
+description: Review code with parallel agents — tests, security, Ecto, LiveView, Oban. Use after implementation to catch bugs and anti-patterns before committing.
+effort: high
+argument-hint: "[test|security|oban|deploy|iron-laws|all]"
+---
+
+# Review Elixir/Phoenix Code
+
+Review code by spawning parallel specialist agents. Find and
+explain issues — do NOT create tasks or fix anything.
+
+## Usage
+
+```
+/spx:review                          # Auto-detects task ID from branch/commits
+/spx:review test                     # Review test files only
+/spx:review security                 # Run security audit only
+/spx:review oban                     # Review Oban workers only
+/spx:review deploy                   # Validate deployment config
+/spx:review iron-laws                # Check Iron Law violations only
+/spx:review ENA-8931                 # Force Linear issue
+/spx:review #42                      # Force GitHub issue
+/spx:review specs/auth/plan.md    # Force plan / spec file
+/spx:review --no-requirements        # Skip requirements coverage check
+/spx:review --codex                  # Add Codex CLI as cross-model reviewer
+```
+
+## Arguments
+
+`$ARGUMENTS` = Focus area, task ID, or path to plan/spec file.
+
+When no requirements argument is passed, the skill auto-detects a task ID
+from the current git branch name and recent commits (see
+`${CLAUDE_SKILL_DIR}/references/requirements-detection.md`).
+
+## Workflow
+
+### Step 1: Identify Changed Files and Prepare Directories
+
+**CRITICAL**: Create output dirs BEFORE spawning agents — agents cannot
+create directories and writes will fail.
+
+1. Determine SLUG via Glob on `specs/*/` (default: `"review"`)
+2. Run `mkdir -p "specs/${SLUG}/reviews" "specs/${SLUG}/summaries" .claude/reviews`
+3. Run `git diff --name-only HEAD~5` and `git diff --name-only main`
+4. Save the diff base for pre-existing detection in Step 3b
+
+### Step 1b: Load Plan Context and Prior Reviews
+
+- Read `specs/${SLUG}/scratchpad.md` for planning decisions and rationale
+- Pass relevant decisions to agents as WHY-context (eliminates session archaeology)
+- Check `specs/${SLUG}/reviews/` for prior output; if present, include a
+  consolidated summary as "PRIOR FINDINGS" with: "Focus on NEW issues. Mark
+  still-present issues as PERSISTENT."
+
+### Step 1c: Detect Requirements Source (skip on `--no-requirements`)
+
+Find a task/spec whose requirements should be cross-checked against the diff.
+Priority order (stop at first match): explicit arg → conversation context →
+branch regex → commit subjects → latest plan → none. Full table, regexes,
+and fetch mapping in `${CLAUDE_SKILL_DIR}/references/requirements-detection.md`.
+
+Fetch the detected source into `specs/${SLUG}/reviews/.requirements-input.md`
+(Linear via `mcp__linear__get_issue`, GitHub via `gh issue view`, file via Read).
+Record `REQ_SOURCE` label (e.g. `"Linear ENA-8931"`) for the verifier heading.
+On fetch failure, set `SOURCE_STATUS=FETCH_FAILED` and continue — verifier
+will emit `NOT AVAILABLE` rather than block the review.
+
+### Step 2: Spawn Review Agents (MANDATORY)
+
+**NEVER** spawn the same agent role twice per review. One pass per role.
+**NEVER** analyze code yourself — use the Agent tool only. Zero agents = failure.
+
+1. Create a Claude Code task per agent via `TaskCreate` and `TaskUpdate` to `in_progress`
+2. For `/spx:review` or `/spx:review all`: select agents dynamically per the
+   selection table in `${CLAUDE_SKILL_DIR}/references/agent-spawning.md`
+3. For focused reviews (`test|security|oban|deploy|iron-laws`): spawn only the
+   matching specialist from the focused mode table in the same reference
+4. **If Step 1c succeeded** (REQ_SOURCE non-empty and `--no-requirements`
+   not passed): add `claude-speckit-phx-elixir:requirements-verifier` to the same
+   parallel batch. Pass these prompt inputs: `REQUIREMENTS_TEXT` (content
+   of `.requirements-input.md`), `REQUIREMENTS_SOURCE` (REQ_SOURCE label),
+   `DIFF_FILES` (git diff --name-only output), `SOURCE_STATUS` (only if
+   FETCH_FAILED), `output_file: specs/{slug}/reviews/requirements.md`
+5. Spawn in ONE message with `mode: "bypassPermissions"` and `run_in_background: true`
+6. **MANDATORY**: pass explicit `output_file` per-agent (mapping in the reference)
+7. Include the CRITICAL prompt block: write by turn ~12, chat body ≤300 words
+8. Scope every agent to the diff: pass `git diff --name-only` output with
+   "Focus on NEW code. Pre-existing: one-line `{file}:{line} — {brief}`. Do
+   NOT deep-analyze unchanged files."
+9. **With `--codex`**: add `claude-speckit-phx-elixir:codex-reviewer` to the same batch
+   (prompt template in agent-spawning.md). Missing CLI degrades to SKIPPED.
+
+### Step 3: Collect and Compress Findings
+
+Wait for ALL agents to complete. **Do NOT report status until every agent
+completes.** Mark each task `completed` via `TaskUpdate` as it finishes.
+
+**Missing file fallback** — after each agent finishes, verify its expected
+`output_file` exists. If missing (turn exhaustion, error):
+
+1. Append to `specs/{slug}/scratchpad.md`:
+   `[HH:MM] WARN: {agent} did not write {expected_path} — extracting from message`
+2. Parse findings from the agent's return message as fallback
+3. Mark the section in the final review with
+   `⚠️ EXTRACTED FROM AGENT MESSAGE (see scratchpad)` — never silent
+
+**Verification-runner fallback** — if it times out, run directly:
+`mix compile --warnings-as-errors && mix format --check-formatted $(git diff --name-only HEAD~5 | grep '\.exs\?$' | tr '\n' ' ') && mix credo --strict && mix test`
+
+**Context supervision** — for 4+ agents, spawn `claude-speckit-phx-elixir:context-supervisor`:
+
+```
+Prompt: "Compress review agent output.
+  input_dir: specs/{slug}/reviews
+  output_dir: specs/{slug}/summaries
+  output_file: review-consolidated.md
+  priority_instructions: BLOCKERs and WARNINGs: KEEP ALL.
+    SUGGESTIONs: COMPRESS similar ones into groups.
+    Deconfliction: when iron-law-judge and elixir-reviewer
+    flag same code, keep iron-law-judge finding."
+```
+
+Skip the supervisor for focused (1-agent) reviews — read output directly.
+
+### Step 3b: Filter Findings (Anti-Noise)
+
+Before writing the review, apply these overriding filters to each finding:
+
+1. Would a senior Elixir dev dismiss this as noise?
+2. Does the finding add complexity exceeding the problem's complexity?
+3. Are any findings duplicates reworded by different agents?
+4. Does the finding affect code actually changed in this diff?
+5. Is the finding on unchanged code (not in diff)? → Mark PRE-EXISTING
+6. Flagged by both a Claude agent AND `[codex]`? → mark HIGH CONFIDENCE
+
+Demote or remove findings that fail filters 1-4. Mark pre-existing per filter 5.
+
+### Step 4: Generate Review Summary
+
+Read consolidated/agent output. Write to `specs/{slug}/reviews/{feature}-review.md`
+with verdict: PASS | PASS WITH WARNINGS | REQUIRES CHANGES | BLOCKED.
+
+**Requirements Coverage in verdict**: if the verifier ran, read its
+summary line and fold into the verdict:
+
+- Any `UNMET` → escalate to `REQUIRES CHANGES` (even if code-quality PASS)
+- Any `PARTIAL` (no UNMET) → downgrade PASS → `PASS WITH WARNINGS`
+- `NOT AVAILABLE` / all `MET` / `UNCLEAR` only → no verdict change
+
+Insert the verifier's `## Requirements Coverage` block into the
+review document **before** the per-agent findings so it's the first
+thing the user sees.
+
+### Step 5: Present Findings and Ask User
+
+**STOP and present the review.** Do NOT create tasks or fix
+anything.
+
+**On BLOCKED or REQUIRES CHANGES**: Show finding count by severity,
+then offer via `AskUserQuestion`: `/spx:triage` (recommended),
+`/spx:plan specs/{slug}/reviews/{feature}-review.md` (converts
+findings into a follow-up plan — pass the review file path, not a
+re-description), fix directly (`/spx:codex-loop` when codex ran), or "I'll handle it myself".
+
+**On PASS / PASS WITH WARNINGS**: Suggest `/spx:compound`, `/spx:learn`.
+
+**Convention extraction**: After presenting findings, offer: "Any findings
+to suppress or enforce as conventions?" See `${CLAUDE_SKILL_DIR}/references/conventions.md`.
+
+## Iron Laws
+
+1. **Review is READ-ONLY** — Find and explain, never fix
+2. **NEVER auto-fix after review** — Always ask the user first
+3. **Always offer both paths**: `/spx:plan` and `/spx:implement`
+4. **Research before claiming** — Agents MUST research before
+   making claims about CI/CD or external services
+
+## Integration
+
+`/spx:plan` → `/spx:implement` → `/spx:review` (YOU ARE HERE) → Blocked? `/spx:triage` or `/spx:plan` | Pass? `/spx:compound`
+
+See: `${CLAUDE_SKILL_DIR}/references/review-template.md`, `${CLAUDE_SKILL_DIR}/references/example-review.md`, `${CLAUDE_SKILL_DIR}/references/blocker-handling.md`, `${CLAUDE_SKILL_DIR}/references/requirements-detection.md`

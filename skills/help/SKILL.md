@@ -1,0 +1,105 @@
+---
+name: spx:help
+description: "Recommend the right /spx: command for planning, review, debug, deploy, or test tasks. Use when \"which command\", \"what should I use\", or \"how do I\". NOT for /help."
+argument-hint: "[description of what you want to do]"
+effort: low
+---
+
+# Plugin Help — Interactive Command Advisor
+
+Helps users find the right command, skill, or agent for their situation.
+
+## Usage
+
+```
+/spx:help                          # Analyze context, suggest commands
+/spx:help how do I debug this?     # Route to /spx:investigate
+/spx:help add a new feature        # Route to /spx:specify -> ... -> /spx:implement
+```
+
+## Arguments
+
+- `$ARGUMENTS` — optional description of what the user wants to do
+- Empty = analyze current context (git status, existing plans, file patterns)
+
+## Execution Flow
+
+### Step 1: Gather Context
+
+If `$ARGUMENTS` is non-empty, use it as primary signal.
+
+Always gather ambient context (run in parallel):
+
+1. Check for existing plans: use Glob on `specs/*/plan.md` — active work in progress?
+2. Check git status: uncommitted changes? which files?
+3. Check for solution docs: use Glob on `.claude/solutions/**/*.md` — prior knowledge?
+
+### Step 2: Classify Intent
+
+Read `${CLAUDE_SKILL_DIR}/references/tool-catalog.md` for the full routing table.
+
+Map the user's situation to one of these categories:
+
+| Category | Signals | Primary Commands |
+|----------|---------|-----------------|
+| **Starting out** | No specs, new to plugin | `/spx:intro`, `/spx:constitution` |
+| **Ideation** | "explore", "brainstorm", "not sure", "how to approach", "vague idea" | `/spx:brainstorm`, `/spx:assess` |
+| **New feature** | "add", "build", "implement", multi-file | `/spx:specify` → `/spx:clarify` → `/spx:plan` → `/spx:tasks` → `/spx:implement` |
+| **Clarify spec** | "ambiguous", "underspecified", "open questions" | `/spx:clarify` |
+| **Quick change** | Single file, <50 lines, "fix typo" | `/spx:quick` |
+| **Bug (fast)** | Error, stack trace, "broken", "failing" | `/spx:investigate` |
+| **Bug (tracked)** | Bug worth an artifact trail | `/spx:bug` |
+| **Review** | "check", "review", PR ready | `/spx:review` |
+| **Performance** | "slow", "N+1", "memory" | `/spx:perf`, `/spx:n1-check`, `/spx:assigns-audit` |
+| **Research** | "how to", "best practice", "evaluate lib" | `/spx:research` |
+| **Resume work** | Existing tasks.md with unchecked tasks | `/spx:implement --continue` |
+| **Post-fix** | "that worked", solved a hard bug | `/spx:compound`, `/spx:learn` |
+| **Full cycle** | Large feature, run the whole spine | `/spx:full` |
+| **Project health** | "audit", "tech debt", "overall quality" | `/spx:audit`, `/spx:techdebt`, `/spx:doctor` |
+| **Dep update audit** | "audit deps", "supply chain", "post-`mix deps.update`", "review mix.lock PR" | `/spx:deps-audit` |
+| **Manual dep vetting** | "vet this package", "approve dep", "trust ledger", "after /spx:deps-audit findings" | `/spx:deps-vet` |
+| **Deployment** | "deploy", "release", "production" | `/spx:deploy` (or `/spx:verify` then deploy) |
+| **Permissions** | "too many prompts", "allow", "permission fatigue" | `/spx:permissions` |
+
+### Step 3: Respond or Clarify
+
+**If high confidence** (clear match to one category):
+Present the recommendation with:
+
+- The command to run (with exact syntax)
+- One-line explanation of what it does
+- What artifacts it creates (if any)
+- Suggested next step after it completes
+
+**If medium confidence** (2-3 possible matches):
+Use `AskUserQuestion` with the top options, each with a one-line explanation.
+
+**If low confidence** (vague or no signal):
+Ask ONE focused clarifying question. Examples:
+
+- "Are you starting something new or continuing existing work?"
+- "Is this a bug fix or a new feature?"
+- "How many files do you expect to change?"
+
+Then recommend based on the answer.
+
+### Step 4: Offer Follow-up
+
+After recommending, always add:
+
+- "Run `/spx:help` anytime to get routing advice"
+- If they seem new: "Try `/spx:intro` for a full plugin walkthrough"
+
+## Iron Laws
+
+1. **ONE recommendation** — don't dump the full catalog, pick the best match
+2. **MAX ONE clarifying question** — don't interrogate, make your best guess
+3. **Show exact syntax** — `/spx:specify Add user notifications` not just "use the specify command"
+4. **Context over keywords** — existing plans + git state matter more than word matching
+5. **NEVER block** — if user already knows what they want, DO NOT redirect
+
+## Integration
+
+- Complements `intent-detection` (auto-trigger) with explicit invocation
+- References same routing logic but adds interactive clarification
+- Can recommend `/spx:intro` for onboarding

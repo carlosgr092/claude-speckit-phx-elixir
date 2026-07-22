@@ -1,0 +1,45 @@
+name: Feature request
+description: Suggest a new command, agent, skill, hook, or improvement.
+title: "[feat]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a bigger idea to discuss first? Open a
+        [Discussion](https://github.com/carlosgr092/claude-speckit-phx-elixir/discussions).
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What are you trying to do, and what is missing today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should the plugin do? Which /spx command or phase does it touch?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Spine command (constitution/specify/clarify/plan/tasks/analyze/checklist/implement)
+        - Capability command (review/investigate/deps/perf/...)
+        - Agent
+        - Skill / domain knowledge
+        - Hook / enforcement
+        - Constitution / Iron Laws
+        - Docs
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
