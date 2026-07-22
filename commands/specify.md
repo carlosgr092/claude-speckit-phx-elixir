@@ -94,7 +94,7 @@ Given that feature description, do this:
    7. Identify Key Entities (if data involved).
    8. Return: SUCCESS (spec ready for planning).
 
-9. Write the specification to `SPEC_FILE` using the template structure, replacing placeholders with concrete details while preserving section order and headings. Straight quotes `""` only (D13). Under `--lean`, follow the Flags section.
+9. Write the specification to `SPEC_FILE` using the template structure, replacing placeholders with concrete details while preserving section order and headings. **First Read `SPEC_FILE`** — `create-feature.sh` (step 4) already copied the resolved `spec-template` there, so the overwrite must be a Read-before-Write (skipping the Read trips the harness's "Error writing file" guard). Straight quotes `""` only (D13). Under `--lean`, follow the Flags section.
 
 10. **Specification Quality Validation**: after writing the initial spec, validate it against quality criteria.
 

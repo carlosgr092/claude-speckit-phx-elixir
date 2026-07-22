@@ -134,8 +134,14 @@ Spawn if changing function signatures or refactoring:
 
 ### Phase 3: Context Supervision
 
-After ALL research agents complete, spawn the context-supervisor to
-compress output before you read it:
+After ALL research agents complete, **verify each wrote its expected
+output file** (non-empty) before compressing. A "finished" message is
+not proof of output — a background agent can die mid-work and still
+report complete. For any expected `research/*.md` that is missing or
+empty, treat the agent as failed (see Error Handling): re-spawn it once
+or gather that research yourself. Only once every expected file is
+confirmed present, spawn the context-supervisor to compress output
+before you read it:
 
 ```text
 Agent(subagent_type: "context-supervisor", prompt: """
@@ -229,4 +235,7 @@ conventions, dead-ends to avoid.
 
 If an agent fails: note the gap, research with Read/Grep yourself,
 document assumptions in the digest, and flag that area for manual
-review by the caller.
+review by the caller. A **silent** failure — the agent reported
+complete but wrote no file (or an empty one) — counts as a failure:
+detect it by the missing/empty output file, never by the status
+message alone, then re-spawn once or fill the gap yourself.

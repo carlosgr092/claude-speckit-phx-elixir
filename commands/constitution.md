@@ -119,6 +119,7 @@ Follow this execution flow:
 8. **Marker-managed install of the user-facing copies** (init absorb):
    - Upsert the condensed constitution block into the project `CLAUDE.md` between `<!-- ELIXIR-PHOENIX-PLUGIN:START -->` and `<!-- ELIXIR-PHOENIX-PLUGIN:END -->` (or the plugin's marker pair). NEVER overwrite content outside the markers — user-written rules must be preserved verbatim.
    - If `command -v codex` succeeds (or the user asks), upsert the P1–P3 review rubric into the project `AGENTS.md` between `ELIXIR-PHOENIX-REVIEW-GUIDELINES:START/END`; STOP and ask if an unmanaged `## Review guidelines` section already exists. When codex is absent and not requested, skip silently.
+   - **Stamp the constitution version into BOTH blocks.** Fill the `{CONSTITUTION_VERSION}` placeholder in each block's managed auto-generated comment with the new `CONSTITUTION_VERSION` from step 3 (rendered as `constitution vX.Y.Z`). `/spx:doctor` verifies derived-copy freshness by comparing this stamp to the constitution's `Version:` line — NOT by mtime (unreliable across `git clone` and the write order below). A regeneration that skips the stamp makes doctor report the copy unverifiable.
 
 9. Validation before final output:
    - No remaining unexplained bracket tokens. Version line matches the report. Dates ISO `YYYY-MM-DD`.

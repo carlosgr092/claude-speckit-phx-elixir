@@ -3,11 +3,12 @@ Managed `## Review guidelines` block for the project's AGENTS.md — the codex P
 inside the markers on every amendment; carry over the project's existing `### Known
 non-issues` entries verbatim (project knowledge, not template content). Keep it under 35
 lines — cloud reviews read the nearest AGENTS.md per changed file, and a bloated rubric
-dilutes focus.
+dilutes focus. Fill `{CONSTITUTION_VERSION}` from the constitution's `Version:` line so
+/spx:doctor can verify freshness by version stamp rather than mtime.
 
 ```markdown
 <!-- ELIXIR-PHOENIX-REVIEW-GUIDELINES:START -->
-<!-- Managed by /spx:constitution — edits inside markers are overwritten on amendment -->
+<!-- Managed by /spx:constitution — constitution v{CONSTITUTION_VERSION}; edits inside markers are overwritten on amendment -->
 
 ## Review guidelines
 
