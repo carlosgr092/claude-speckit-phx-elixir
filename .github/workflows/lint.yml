@@ -21,10 +21,10 @@ jobs:
         with:
           config: ".markdownlint.json"
           globs: |
-            '**/*.md'
-            '!.sources/**'
-            '!docs/build/**'
-            '!docs/comprension/**'
+            **/*.md
+            !.sources/**
+            !docs/build/**
+            !docs/comprension/**
 
   yamllint:
     name: YAML

@@ -89,4 +89,4 @@ How would you like to proceed?
 - `/spx:implement specs/magic-link-auth/plan.md` — Fix directly
 - I'll handle it myself
 
-```
+```text

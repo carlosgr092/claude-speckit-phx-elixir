@@ -43,7 +43,7 @@ specific files; never `git add -A`.
 
 `.claude/deps-update/{YYYY-MM-DD}/` — per-run, never committed:
 
-```
+```text
 inventory.md              # parsed hex.outdated table, classified
 before/<pkg>-CHANGELOG.md # snapshot of the current changelog (pre-update)
 <pkg>-<old>-<new>.md      # per-package changelog delta + notes

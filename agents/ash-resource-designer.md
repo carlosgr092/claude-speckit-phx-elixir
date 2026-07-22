@@ -213,7 +213,7 @@ field-policy coverage, create-time `expr` constraints) — don't reproduce its c
 
 ### 1. Explore Context (Glob + Read)
 
-```
+```text
 Glob: lib/**/{context}/*.ex
 ```
 

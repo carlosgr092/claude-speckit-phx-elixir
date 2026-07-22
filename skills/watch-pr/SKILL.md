@@ -14,7 +14,7 @@ context until something genuinely changed.
 
 ## Usage
 
-```
+```text
 /spx:watch-pr 42                 # watch reviews + comments + checks
 /spx:watch-pr 42 --checks-only   # CI only (delegates to gh pr checks --watch)
 /spx:watch-pr 42 --fix           # on actionable review, draft fixes too
@@ -103,7 +103,7 @@ failing job log (`gh run view {run-id} --log-failed`).
 
 Start the **Monitor tool** (preferred — streams each event line back) on:
 
-```
+```text
 ${CLAUDE_SKILL_DIR}/scripts/watch-pr.sh {n} reviews,comments,checks
 ```
 

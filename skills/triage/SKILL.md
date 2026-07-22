@@ -12,7 +12,7 @@ committing to fixes.
 
 ## Usage
 
-```
+```text
 /spx:triage specs/user-auth/reviews/user-auth-review.md
 /spx:triage                  # Uses most recent review
 ```
@@ -42,7 +42,7 @@ in Elixir/Phoenix development.
 Use `AskUserQuestion` with `multiSelect: true`. Start with
 severity shortcuts, then list individual findings:
 
-```
+```text
 AskUserQuestion:
   question: "Which findings do you want to fix? (Iron Law violations auto-included)"
   header: "Triage"
@@ -78,7 +78,7 @@ Write to `specs/{slug}/reviews/{slug}-triage.md` with Fix Queue
 
 ### Step 5: Present Next Steps
 
-```
+```text
 Triage complete: {n} to fix, {n} skipped, {n} deferred.
 
 1. Plan fixes — /spx:plan specs/{slug}/reviews/{slug}-triage.md

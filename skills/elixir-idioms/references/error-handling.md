@@ -2,7 +2,7 @@
 
 ## Decision Tree
 
-```
+```text
 Is failure expected in normal operation?
 ├─ Yes → {:ok, _}/{:error, _} tuples
 │   ├─ Chaining operations? → with
@@ -92,7 +92,7 @@ end
 
 ## Control Flow Decision Tree
 
-```
+```text
 Need to match against patterns?
 ├─ Yes → case
 │   └─ Multiple dependent operations? → with

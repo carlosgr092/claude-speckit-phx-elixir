@@ -12,7 +12,7 @@ to prevent future mistakes.
 
 ## Usage
 
-```
+```text
 /spx:learn Fixed N+1 query in user listing - was missing preload
 /spx:learn String vs atom key mismatch in params handling
 /spx:learn LiveView assign_async needs render_async in tests

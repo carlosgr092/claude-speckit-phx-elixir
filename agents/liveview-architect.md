@@ -77,7 +77,7 @@ These are NON-NEGOTIABLE.
 
 ### Component Architecture
 
-```
+```text
 LiveView Page
 ├── Function components (stateless, fast)
 │   └── Use for: buttons, cards, lists, icons
@@ -89,7 +89,7 @@ LiveView Page
 
 ### Component Decision Tree
 
-```
+```text
 Need reusable markup only?           → Function Component
 Need state AND event handling?       → LiveComponent
 Need process isolation?              → Nested LiveView
@@ -139,7 +139,7 @@ handle_params/3 (every URL change)
   ↓
 Event loop: handle_event, handle_info, handle_async
 
-```
+```text
 
 **Loading strategy:**
 - mount/3: Primary resources (user, base data)
@@ -157,7 +157,7 @@ Event loop: handle_event, handle_info, handle_async
 ├── handle_info/3: PubSub messages
 └── render/1: Template
 
-```
+```text
 
 ### Components Needed
 
@@ -264,7 +264,7 @@ Only include when 2+ viable solution shapes exist:
 
 **Why this is better**: {reason}
 
-```
+```text
 
 ## LiveView Anti-patterns to Avoid
 

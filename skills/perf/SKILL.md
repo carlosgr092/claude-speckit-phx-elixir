@@ -12,7 +12,7 @@ and OTP layers. Prioritize findings by impact and effort.
 
 ## Usage
 
-```
+```text
 /spx:perf                           # Analyze full project
 /spx:perf lib/my_app/accounts.ex    # Analyze specific module
 /spx:perf --focus ecto              # Ecto queries only
@@ -103,7 +103,7 @@ Present findings sorted by priority:
 Always end with actionable next steps — findings without follow-up
 get lost. Present options based on severity:
 
-```
+```text
 How would you like to proceed?
 
 - `/spx:plan` — Create a plan from these findings (recommended for 3+ fixes)

@@ -12,7 +12,7 @@ debugging session easier than the last.
 
 ## Directory Structure
 
-```
+```text
 .claude/solutions/
 ├── ecto-issues/
 ├── liveview-issues/

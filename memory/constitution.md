@@ -38,6 +38,7 @@ On any violation: STOP. State "This would violate Iron Law [n]", show what was w
 show the correct pattern, ask "Should I apply this fix?".
 
 LiveView
+
 1. NO unconditional DB queries in mount — mount runs twice; default `assign_async`; SEO
    routes use `connected?/1` plus a cache-backed disconnected branch (the dead render IS
    the crawler-indexed HTML).
@@ -217,8 +218,7 @@ STEP 3 ROUTE: <=2 -> proceed or /spx:quick; 3-6 -> /spx:specify -> clarify -> pl
 
 STEP 4 INTERVIEW (score >=3 or security; skip only on explicit "quick"/"just do it"):
 new feature -> scope in/out; security -> "Who should access this?" + "What if
-compromised?"; database -> "Rollback needed?" + "How much data?"; Oban -> "Which queue?"
-+ "Retry behavior?".
+compromised?"; database -> "Rollback needed?" + "How much data?"; Oban -> "Which queue?" + "Retry behavior?".
 
 STEP 5 LOAD skills silently by file pattern (`*_live.ex` -> liveview-patterns;
 `*_worker.ex` -> oban; migrations/schemas -> ecto-patterns; `*auth*` -> security;
@@ -264,7 +264,7 @@ STEP 7 PROCEED, remembering the Verification Gate.
 2. SubagentStart injection (hooks/scripts/inject-iron-laws.sh) — subagents load zero
    skills; the laws reach them only through this hook.
 3. PostToolUse programmatic verifier (iron-law-verifier.sh: laws 4, 10, 12, 14, 15, 21)
-   + security-reminder + format + debug-statement hooks.
+   - security-reminder + format + debug-statement hooks.
 4. Judgment review: iron-law-judge agent (analyze/review) + codex P1-P3 rubric in
    AGENTS.md.
 Regenerating all derived copies is a mandatory step of every constitution amendment.

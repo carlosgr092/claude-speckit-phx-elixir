@@ -51,7 +51,7 @@ disallowed — you cannot modify source code, which upholds Review Iron Law #1.
 
 ### LiveView Iron Laws
 
-**#1 No unconditional DB queries in disconnected mount**
+#### #1 No unconditional DB queries in disconnected mount
 
 The rule: `mount/3` runs TWICE on full page load (HTTP + WebSocket). Unconditional
 `Repo.*` calls double DB pressure for zero benefit. BUT the disconnected render
@@ -98,7 +98,7 @@ end
 See `liveview-patterns` skill (`references/async-streams.md` → "SEO Dead-Render Pattern")
 for the canonical implementation. Do NOT flag this pattern as a violation.
 
-**#2 Streams for large lists**
+#### #2 Streams for large lists
 
 - Severity: HIGH
 - Files: `*_live.ex`
@@ -107,7 +107,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: REVIEW — not all lists are large; flag for human review
 - Detection approach: Use Grep tool for `assign(socket, :` and `stream(` on each file. Flag assigns with collection-like names when no corresponding `stream(` exists.
 
-**#3 Check connected? before PubSub**
+#### #3 Check connected? before PubSub
 
 - Severity: CRITICAL
 - Files: `*_live.ex`
@@ -117,7 +117,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 
 ### Ecto Iron Laws
 
-**#4 No float for money**
+#### #4 No float for money
 
 - Severity: CRITICAL
 - Files: `*_schema.ex`, `priv/repo/migrations/*.exs`
@@ -125,7 +125,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: DEFINITE
 - Detection approach: Use Grep tool with pattern `field\s+:(price|amount|cost|balance|total|fee|rate|salary|wage|money|payment|credit|debit),\s*:float` on schema and migration files.
 
-**#5 Pin values in queries**
+#### #5 Pin values in queries
 
 - Severity: CRITICAL
 - Files: `*.ex` files containing `from(`
@@ -133,7 +133,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: DEFINITE for fragment interpolation, LIKELY for missing `^`
 - Detection approach: Use Grep tool with patterns `fragment\(".*#\{` and `Repo\.query.*#\{` on context files.
 
-**#6 Separate queries for has_many**
+#### #6 Separate queries for has_many
 
 - Severity: MEDIUM
 - Files: `*.ex` context modules
@@ -143,7 +143,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 
 ### Oban Iron Laws
 
-**#7 Jobs must be idempotent**
+#### #7 Jobs must be idempotent
 
 - Severity: HIGH
 - Files: `*_worker.ex`, `*_job.ex`
@@ -151,7 +151,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: REVIEW — idempotency can be ensured without `unique:` option
 - Detection approach: Use Grep tool for `use Oban.Worker` and `unique:` on worker files. Flag workers without `unique:` as a reminder to verify idempotency.
 
-**#8 String keys in args**
+#### #8 String keys in args
 
 - Severity: HIGH
 - Files: `*_worker.ex`, `*_job.ex`
@@ -159,7 +159,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: DEFINITE — atom keys in Oban args is always wrong
 - Detection approach: Use Grep tool with patterns `def perform.*args:.*%\{[a-z_]*:` on worker files. Flag atom key syntax (`%{key:`) in args pattern match.
 
-**#9 No structs in args**
+#### #9 No structs in args
 
 - Severity: HIGH
 - Files: `*.ex` files with Oban calls
@@ -167,7 +167,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: LIKELY — struct in args map is almost always wrong
 - Detection approach: Use Grep tool with patterns `Oban\.Worker\.new.*%[A-Z]` and `Oban\.insert.*%[A-Z]` on relevant files.
 
-**#9b Smart Engine: snooze + attempt guard = infinite loop**
+#### #9b Smart Engine: snooze + attempt guard = infinite loop
 
 - Severity: CRITICAL
 - Files: `*_worker.ex`, `*_job.ex`
@@ -177,7 +177,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 
 ### Security Iron Laws
 
-**#10 No String.to_atom with user input**
+#### #10 No String.to_atom with user input
 
 - Severity: CRITICAL
 - Files: `lib/**/*.ex` (exclude test/, config/)
@@ -186,7 +186,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: DEFINITE — `String.to_atom/1` in application code is almost always wrong
 - Detection approach: Use Grep tool with pattern `String\.to_atom\(` on `lib/` directory. Manually exclude results containing `to_existing_atom`.
 
-**#11 Authorize in every handle_event**
+#### #11 Authorize in every handle_event
 
 - Severity: CRITICAL
 - Files: `*_live.ex`
@@ -195,7 +195,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: REVIEW — high false-positive risk; flag for review, do not assert violation
 - Detection approach: Use Grep tool for `def handle_event` on each LiveView file. Then Read the function body and check for authorization patterns. Flag those without.
 
-**#12 No raw() with untrusted content**
+#### #12 No raw() with untrusted content
 
 - Severity: CRITICAL
 - Files: `*.html.heex`, `*_live.ex`, `*_component.ex`
@@ -205,7 +205,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 
 ### OTP Iron Laws
 
-**#13 No process without runtime reason**
+#### #13 No process without runtime reason
 
 - Severity: MEDIUM
 - Files: `*.ex`
@@ -215,7 +215,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 
 ### Ecto Iron Laws (continued)
 
-**#14 No implicit cross joins**
+#### #14 No implicit cross joins
 
 - Severity: HIGH
 - Files: `*.ex` files containing `from(`
@@ -226,7 +226,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 
 ### Elixir Iron Laws
 
-**#15 @external_resource for compile-time files**
+#### #15 @external_resource for compile-time files
 
 - Severity: MEDIUM
 - Files: `lib/**/*.ex`
@@ -236,7 +236,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
   Read matched files to check if the call is at module level (not inside a function).
   If so, check for `@external_resource` declaration. Flag if missing.
 
-**#16 Mix tasks must not boot the full app**
+#### #16 Mix tasks must not boot the full app
 
 - Severity: HIGH
 - Files: `lib/mix/tasks/*.ex`
@@ -244,7 +244,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: DEFINITE
 - Detection approach: Grep pattern `Mix\.Task\.run\("app\.start"\)` on `lib/mix/tasks/`. Fix: `Mix.Task.run("app.config")` + `Application.ensure_all_started/1` + `Repo.start_link()`.
 
-**#17 LiveView must match changeset errors explicitly**
+#### #17 LiveView must match changeset errors explicitly
 
 - Severity: HIGH
 - Files: `*_live.ex`
@@ -252,7 +252,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: LIKELY — verify the matched value can be a changeset
 - Detection approach: Grep pattern `\{:error, _\}` on `*_live.ex`. Read the clause; if the call site returns `{:error, %Ecto.Changeset{}}`, flag it.
 
-**#18 Capture locale before spawning**
+#### #18 Capture locale before spawning
 
 - Severity: MEDIUM
 - Files: `*.ex` using Gettext/CLDR
@@ -260,7 +260,7 @@ for the canonical implementation. Do NOT flag this pattern as a violation.
 - Confidence: REVIEW — locale is process-local; spawned process resets to default
 - Detection approach: Grep `Gettext\.put_locale|gettext\(` near `Task\.(async|start)`. Flag spawns whose closure translates but takes no locale param.
 
-**#19 Comments aren't commit messages**
+#### #19 Comments aren't commit messages
 
 - Severity: LOW
 - Files: `*.ex`, `*.exs`, `*.heex`, `*.js`

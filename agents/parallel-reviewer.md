@@ -183,7 +183,7 @@ and Iron Laws automatically.
 at 1–5 min, so it overlaps the Claude agents; it self-preflights and SKIPs
 gracefully — never blocks the panel):
 
-```
+```text
 Agent(subagent_type: "claude-speckit-phx-elixir:codex-reviewer", mode: "bypassPermissions", prompt: """
 Codex CLI review of this diff; normalize findings.
 base_branch: {default branch, e.g. main}
@@ -271,7 +271,7 @@ after the limit resets to cover the missing tracks."
 
 After all 4 agents complete, spawn context-supervisor:
 
-```
+```text
 Agent(subagent_type: "context-supervisor", mode: "bypassPermissions", prompt: """
 Compress review findings.
 Input: {output_dir}

@@ -55,7 +55,7 @@ do NOT run phases in this outer context.
    the pure speckit spine (D9).
 3. Spawn the driver:
 
-   ```
+   ```text
    Agent(subagent_type: "claude-speckit-phx-elixir:full-driver", prompt: """
    Feature: <description>
    Mode: gates | auto

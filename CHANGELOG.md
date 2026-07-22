@@ -18,6 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   CONTRIBUTING, ARCHITECTURE, and CHANGELOG, and added Article IX (the reserved
   project-specific principles slot) to the README's article enumeration. The shipped
   constitution already had 9 Articles; only the prose describing it lagged.
+- CI: the `Lint` workflow was vacuously green. Its markdownlint globs were quoted
+  literally in the YAML (`'**/*.md'`), so the action matched zero files and never
+  checked anything. Unquoted the globs so it lints the tracked tree, and pointed the
+  Makefile `markdown` target at `git ls-files` (pinned to the action's markdownlint
+  version) so local runs match CI exactly.
+- Docs: resolved the ~375 markdownlint violations the vacuous `Lint` had been masking
+  across 103 files — tagged untagged fenced code blocks (`text` by default), converted
+  emphasis-as-heading labels to real headings at the correct level, escaped a table
+  cell pipe, and disabled two rules that fought intentional patterns (`MD048` for the
+  tilde wrappers that quote fenced examples, `MD053` for `[PLACEHOLDER]` tokens in
+  templates). Markdown linting now runs for real and is green.
 
 ## [0.1.0] - 2026-07-21
 

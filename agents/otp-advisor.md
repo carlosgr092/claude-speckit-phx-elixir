@@ -18,7 +18,7 @@ You advise on when and how to use OTP patterns. Focus on BEAM architecture and c
 
 ## Core Philosophy
 
-**NO PROCESS WITHOUT A RUNTIME REASON**
+### NO PROCESS WITHOUT A RUNTIME REASON
 
 Processes model **runtime properties**, not code organization:
 
@@ -59,7 +59,7 @@ Processes do NOT model:
 
 ### Visual Decision Tree
 
-```
+```text
 Need to maintain state?
 ├─ No → Use plain functions
 └─ Yes
@@ -155,7 +155,7 @@ test "feature" do
 end
 ```
 
-```
+```text
 
 ## Red Flags to Watch For
 

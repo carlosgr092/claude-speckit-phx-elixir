@@ -33,7 +33,7 @@ Read `mix.exs` — extract `deps/0`, `aliases/0`, and `cli/0` (for `preferred_en
 
 Report discovery:
 
-```
+```text
 Project tools: compile ✓ | format ✓ | credo ✓ | dialyzer ✓ | sobelow ✓ | ex_check ✓
 Test commands: mix test (unit) | mix playwright.test (E2E, MIX_ENV=int_test)
 Composite runner: mix check (.check.exs covers: compiler, formatter, credo, dialyzer, sobelow, tests)
@@ -91,7 +91,7 @@ Skip unavailable tools with: "Credo: ⏭ Not installed"
 
 After core verification passes, check if project has additional test commands (E2E, integration, coverage). **Ask the user**:
 
-```
+```text
 Core verification passed. Additional test commands available:
 1. mix playwright.test (E2E, MIX_ENV=int_test) — ~5min
 2. mix test.with_coverage (unit + coverage report)

@@ -2,7 +2,7 @@
 
 ## Lifecycle Execution Order
 
-```
+```text
 [Initial HTTP Request]
      ↓
 mount/3 (disconnected) → handle_params/3 → render/1

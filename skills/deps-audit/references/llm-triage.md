@@ -23,7 +23,7 @@ human reviewer. **No finding is auto-suppressed without human review.**
 
 ## Architecture
 
-```
+```text
 deps-audit body
     │
     ▼ score > 10 for package P?

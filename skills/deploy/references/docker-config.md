@@ -110,7 +110,7 @@ export ERL_AFLAGS="-proto_dist inet6_tcp"
 
 ### rel/vm.args.eex
 
-```
+```text
 ## Performance tuning
 +sbwt very_short
 +swt very_low

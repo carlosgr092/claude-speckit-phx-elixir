@@ -180,7 +180,7 @@ Ash.count!(Post)
 
 **Step 1 — Loads in LiveViews and hot paths:**
 
-```
+```text
 Grep: "Ash.load" in lib/**/*_live.ex
 Grep: "Ash.load" in lib/**/live/**/*.ex
 ```
@@ -189,7 +189,7 @@ Flag any load inside `handle_event`, `handle_info`, or comprehensions.
 
 **Step 2 — Domain actions inside Enum:**
 
-```
+```text
 Grep: "Enum.(map|each|reduce|flat_map)" in lib/ --include="*.ex"
 ```
 
@@ -197,7 +197,7 @@ Read surrounding context; flag any domain code interface call inside the block.
 
 **Step 3 — Load-then-count/length patterns:**
 
-```
+```text
 Grep: "length\(|Enum\.count\(|Enum\.sum\(" in lib/ --include="*.ex"
 ```
 
@@ -206,7 +206,7 @@ If usage is `> 0` / `== 0` / `>= 1`, suggest `exists` specifically.
 
 **Step 4 — Post-load filtering:**
 
-```
+```text
 Grep: "Enum.filter\(.*\." in lib/ --include="*.ex"
 ```
 
@@ -214,7 +214,7 @@ Check if the source was `Ash.load` on a relationship — push the filter into th
 
 **Step 5 — Direct Repo escapes:**
 
-```
+```text
 Grep: "Repo\.(all|aggregate|one|get)" in lib/ --include="*.ex"
 ```
 

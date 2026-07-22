@@ -12,7 +12,7 @@ institutional documentation.
 
 ## Usage
 
-```
+```text
 /spx:compound Fixed N+1 query in user listing
 /spx:compound Resolved LiveView timeout in dashboard
 /spx:compound   # Auto-detects from recent session context

@@ -34,7 +34,7 @@ cross-reference with current `settings.json`, and recommend adding the missing o
 |-------|----------|--------|
 | GREEN | `ls`, `cat`, `grep`, `tail`, `which`, `mkdir`, `cd`, `mix test/compile/credo/format`, `git status/log/diff` | Auto-recommend |
 | YELLOW | `git add/commit/push`, `mix ecto.migrate`, `mix deps.get`, `npm install`, `docker build/run`, `source`, `mise exec` | Recommend with note |
-| RED | `rm -rf`, `sudo`, `kill`, `curl|sh`,`mix ecto.reset/drop`,`git push --force`,`git reset --hard` | Never recommend |
+| RED | `rm -rf`, `sudo`, `kill`, `curl\|sh`, `mix ecto.reset/drop`, `git push --force`, `git reset --hard` | Never recommend |
 
 ## Workflow
 
@@ -64,7 +64,7 @@ For each uncovered command from Step 1 output:
 
 Present a combined table:
 
-```
+```text
 ## Permission Recommendations (last N days)
 
 ### ADD — Missing permissions (from session scan)

@@ -24,14 +24,14 @@ Task creation and planning happen in `/spx:plan` after the user decides.
 
 **If PASS:**
 
-```
+```text
 Review complete. No blockers found.
 Ready for: /spx:learn (capture lessons)
 ```
 
 **If PASS WITH WARNINGS:**
 
-```
+```text
 Review complete. {n} warnings noted.
 Warnings logged but not blocking.
 Ready for: /spx:learn (capture lessons)
@@ -41,7 +41,7 @@ Ready for: /spx:learn (capture lessons)
 
 List untested code with brief descriptions, then ask:
 
-```
+```text
 Review found {n} untested public functions/callbacks:
 
 1. {Function/callback} in {file} -- no test coverage
@@ -58,7 +58,7 @@ How would you like to proceed?
 
 List actual blockers with brief descriptions, then ask:
 
-```
+```text
 Review found {actual count} blockers ({actual count} warnings):
 
 1. {Actual blocker title} -- {one-line impact}

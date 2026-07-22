@@ -6,7 +6,7 @@ are removed by the driver's EXIT trap (see `audit-tmpdir.md`).
 
 ## Tmpdir layout
 
-```
+```text
 ${AUDIT_TMPDIR}/
 ├── lock.old              # diff-resolver: HEAD/base mix.lock
 ├── lock.new              # diff-resolver: working mix.lock
@@ -184,7 +184,7 @@ gate config) is user-owned — track or ignore per your team's policy.
 For Mode A `--preview` we already hit `GET /api/packages/:name` for the
 latest version. The tarball is also at:
 
-```
+```text
 https://repo.hex.pm/tarballs/<pkg>-<version>.tar
 ```
 

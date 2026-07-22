@@ -129,7 +129,7 @@ not a leak. The audit-level `AUDIT_TMPDIR` is the outer envelope.
 Convention (not enforced by code — every wrapper can place files
 wherever, but consistency aids debugging):
 
-```
+```text
 ${AUDIT_TMPDIR}/
 ├── lock.old              # diff-resolver: HEAD/base mix.lock
 ├── lock.new              # diff-resolver: working mix.lock

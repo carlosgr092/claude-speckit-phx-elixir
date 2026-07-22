@@ -10,7 +10,7 @@ Research a topic by searching the web and fetching relevant sources efficiently.
 
 ## Usage
 
-```
+```text
 /spx:research Oban unique jobs best practices
 /spx:research LiveView file upload with progress
 /spx:research --library permit
@@ -52,7 +52,7 @@ exists. If recent (<24 hours): present existing summary, ask
 **Tidewave shortcut**: If the topic is about an **existing dependency**
 (library already in `mix.exs`), prefer Tidewave over web search:
 
-```
+```text
 mcp__tidewave__get_docs(module: "LibraryModule")
 ```
 
@@ -72,7 +72,7 @@ Each query: max 10 words, targets ONE specific aspect.
 
 Example:
 
-```
+```text
 Input: "detect files, export to md, feed database with embeddings,
         use ReqLLM for OpenAI API..."
 Queries:
@@ -85,7 +85,7 @@ Queries:
 
 Search ALL decomposed queries in a SINGLE response (parallel):
 
-```
+```text
 WebSearch(query: "{query1} site:elixirforum.com OR site:hexdocs.pm OR site:github.com")
 WebSearch(query: "{query2} site:hexdocs.pm OR site:elixirforum.com")
 ```
@@ -97,7 +97,7 @@ Deduplicate URLs across results. Discard clearly irrelevant hits.
 Group URLs by topic cluster. Spawn **1-3 web-researcher agents
 in parallel** (one per topic cluster):
 
-```
+```text
 Agent(subagent_type: "web-researcher", prompt: """
 Research focus: {specific aspect from decomposed query}
 Fetch these URLs:
@@ -152,7 +152,7 @@ Create `.claude/research/{topic-slug}.md`:
 - {gotcha from forum/issues}
 - {version compatibility note}
 
-```
+```text
 
 ### 5. After Research — STOP
 

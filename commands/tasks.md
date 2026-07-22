@@ -27,7 +27,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 This command wires the `before_tasks` hook from `${CLAUDE_PLUGIN_ROOT}/templates/extensions.yml`. Mapping: `speckit.git.commit` → `/spx:git-commit`. Resolution: `.specify/extensions.yml` `hooks.before_tasks` overrides the inline default (skip silently on parse failure). Inline default: one **optional** (`optional: true`) hook —
 
-```
+```text
 ## Extension Hooks
 
 **Optional Pre-Hook**: git
@@ -83,6 +83,7 @@ Every task MUST strictly follow: `- [ ] [TaskID] [P?] [Story?] [agent?] Descript
 6. **Description**: clear action with exact file path.
 
 **Examples**:
+
 - ✅ `- [ ] T001 Create project structure per implementation plan`
 - ✅ `- [ ] T005 [P] Implement authentication middleware in src/middleware/auth.py`
 - ✅ `- [ ] T012 [P] [US1] [ecto] Create User schema in lib/app/accounts/user.ex`
@@ -128,7 +129,7 @@ Reflect this by emitting distinct, correctly ordered `[ecto]` tasks (e.g. `T0xx 
 
 Resolve `hooks.after_tasks` (`.specify/extensions.yml` overrides, else inline default). Mapping: `speckit.git.commit` → `/spx:git-commit`. Inline default: one **optional** (`optional: true`) hook —
 
-```
+```text
 ## Extension Hooks
 
 **Optional Hook**: git
@@ -144,6 +145,7 @@ Run `/spx:git-commit` only if accepted. For a mandatory hook, emit `EXECUTE_COMM
 ## Completion Report
 
 Output the path to the generated `tasks.md` and a summary:
+
 - Total task count and count per user story.
 - Parallel opportunities identified; independent test criteria per story.
 - Suggested MVP scope (typically User Story 1).

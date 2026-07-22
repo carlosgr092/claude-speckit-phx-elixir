@@ -31,7 +31,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 This command wires the `before_plan` hook from `${CLAUDE_PLUGIN_ROOT}/templates/extensions.yml`. Mapping: `speckit.git.commit` → `/spx:git-commit`. Resolution: `.specify/extensions.yml` `hooks.before_plan` overrides the inline default (skip silently on parse failure). Inline default: one **optional** (`optional: true`) hook —
 
-```
+```text
 ## Extension Hooks
 
 **Optional Pre-Hook**: git
@@ -143,7 +143,7 @@ Run `/spx:git-commit` only if accepted. Treat missing `enabled` as enabled; skip
 
 Resolve `hooks.after_plan` (`.specify/extensions.yml` overrides, else inline default). Mapping: `speckit.git.commit` → `/spx:git-commit`; `speckit.agent-context.update` → `/spx:agent-context`. Inline default: two **optional** (`optional: true`) hooks in order — `speckit.git.commit`, then `speckit.agent-context.update`.
 
-```
+```text
 ## Extension Hooks
 
 **Optional Hook**: git
@@ -154,7 +154,7 @@ Prompt: Commit plan changes?
 To execute: `/spx:git-commit`
 ```
 
-```
+```text
 ## Extension Hooks
 
 **Optional Hook**: agent-context

@@ -102,7 +102,7 @@ When a task matches a workflow command, check complexity before suggesting:
 
 ## Routing Logic Example
 
-```
+```text
 if has_slash_command($ARGUMENTS) -> follow command directly
 elif has_stack_trace(message) -> suggest /spx:investigate
 elif matches("add|build|implement", message) and multi_step -> suggest /spx:specify

@@ -28,7 +28,7 @@ context — same delta-only discipline as the watch-pr skill.
 One session per subagent — `get_session_messages` responses are 3–15KB
 and batching floods the parent context:
 
-```
+```text
 Fetch session {SESSION_ID} via mcp__ccrider__get_session_messages.
 The question is: "{QUESTION}"
 Extract ONLY content that answers it: the problem, the fix/decision,

@@ -54,7 +54,7 @@ grep -r "package_name" mix.exs mix.lock
 
 Use `WebFetch` to get library documentation efficiently:
 
-```
+```text
 WebFetch(
   url: "https://hexdocs.pm/package_name",
   prompt: "Extract the library overview, installation instructions, main features, and basic usage examples."
@@ -105,7 +105,7 @@ Write findings to the path specified in the orchestrator's prompt (typically `sp
 - Phoenix version requirement: {version}
 - Known conflicts: {any}
 
-```
+```text
 
 ## Key Libraries to Know
 

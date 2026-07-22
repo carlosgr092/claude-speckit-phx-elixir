@@ -48,6 +48,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
     Wait for the result of the hook command before proceeding to the Goal.
     ```
+
     After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing.
 
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently
@@ -292,6 +293,7 @@ After producing the result, check if `.specify/extensions.yml` exists in the pro
     Executing: `/{command}`
     EXECUTE_COMMAND: {command}
     ```
+
     After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing.
 
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently

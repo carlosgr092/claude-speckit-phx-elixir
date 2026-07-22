@@ -43,7 +43,7 @@ Run `mix xref callers MyApp.Accounts.update_user/2` to find all callers. Then re
 
 For full recursive tree with argument extraction and **parallel category tracing**:
 
-```
+```text
 Agent(subagent_type: "call-tracer", prompt: "Build call tree for MyApp.Accounts.update_user/2")
 ```
 

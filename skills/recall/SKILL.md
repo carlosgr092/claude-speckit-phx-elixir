@@ -12,7 +12,7 @@ this before?". Stop at the first layer that answers the question.
 
 ## Usage
 
-```
+```text
 /spx:recall how did we fix the LiveView form that saved silently?
 /spx:recall what did we decide about the billing context boundaries?
 /spx:recall which library did we pick for rate limiting and why?

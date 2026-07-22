@@ -14,7 +14,7 @@ out. Codex reviews; Claude fixes. Complements `/spx:review` (Claude panel)
 
 ## Usage
 
-```
+```text
 /spx:codex-loop                    # diff vs default branch, interactive
 /spx:codex-loop --uncommitted      # staged + unstaged + untracked
 /spx:codex-loop --base develop     # explicit base branch

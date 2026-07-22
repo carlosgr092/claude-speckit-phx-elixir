@@ -2,7 +2,7 @@
 
 ## The Compounding Effect
 
-```
+```text
 Cycle 1: Fix bug → Document solution
 Cycle 2: Hit similar bug → Find solution in docs → Fix faster
 Cycle 3: Agent finds solution → Prevents bug before it ships
@@ -17,7 +17,7 @@ Each documented solution reduces future debugging time. After
 
 #### From Arguments
 
-```
+```text
 /spx:compound Fixed N+1 query in UserListLive — was missing preload on posts
 ```
 

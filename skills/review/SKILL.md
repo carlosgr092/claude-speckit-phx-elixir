@@ -12,7 +12,7 @@ explain issues — do NOT create tasks or fix anything.
 
 ## Usage
 
-```
+```text
 /spx:review                          # Auto-detects task ID from branch/commits
 /spx:review test                     # Review test files only
 /spx:review security                 # Run security audit only
@@ -111,7 +111,7 @@ completes.** Mark each task `completed` via `TaskUpdate` as it finishes.
 
 **Context supervision** — for 4+ agents, spawn `claude-speckit-phx-elixir:context-supervisor`:
 
-```
+```text
 Prompt: "Compress review agent output.
   input_dir: specs/{slug}/reviews
   output_dir: specs/{slug}/summaries

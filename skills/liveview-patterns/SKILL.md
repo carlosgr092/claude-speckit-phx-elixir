@@ -96,7 +96,7 @@ end
 
 ## Navigation Decision Tree
 
-```
+```text
 Same LiveView, different params? → patch / push_patch
 Different LiveView, same live_session? → navigate / push_navigate
 Different live_session or non-LiveView? → href / redirect
@@ -104,7 +104,7 @@ Different live_session or non-LiveView? → href / redirect
 
 ## Component Decision Tree
 
-```
+```text
 Does component need BOTH internal state AND event handling?
 │
 ├── YES → Does it encapsulate APPLICATION logic (not just DOM)?

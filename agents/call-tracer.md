@@ -54,7 +54,7 @@ mix xref callers MyApp.Accounts.update_user/2
 
 Spawn subagents for each relevant entry point category **in parallel**:
 
-```
+```text
 Agent(subagent_type: "general-purpose", prompt: "...", run_in_background: true)
 ```
 
@@ -67,7 +67,7 @@ subagent to write output there. Otherwise return inline.
 
 #### Controller Tracer Subagent
 
-```
+```text
 Objective: Trace all controller entry points that lead to {target_mfa}
 Scope: lib/*_web/controllers/**/*.ex
 Focus: HTTP entry points, conn flow, plug pipelines
@@ -79,7 +79,7 @@ Output format:
 
 #### LiveView Tracer Subagent
 
-```
+```text
 Objective: Trace all LiveView entry points that lead to {target_mfa}
 Scope: lib/*_web/live/**/*.ex
 Focus: mount, handle_event, handle_info, handle_params, handle_async
@@ -91,7 +91,7 @@ Output format:
 
 #### Worker Tracer Subagent
 
-```
+```text
 Objective: Trace all background worker entry points that lead to {target_mfa}
 Scope: lib/*/workers/**/*.ex, lib/*/jobs/**/*.ex
 Focus: Oban perform/1, GenServer callbacks, Broadway handlers
@@ -103,7 +103,7 @@ Output format:
 
 #### Internal Tracer Subagent
 
-```
+```text
 Objective: Trace internal (non-entry-point) callers of {target_mfa}
 Scope: lib/*/*.ex (excluding _web, workers)
 Focus: Context modules, services, cross-module calls
@@ -184,7 +184,7 @@ Merge all subagent outputs into unified call tree:
 
 ### Controller Tracer
 
-```
+```text
 You are tracing controller entry points for: {target_mfa}
 
 Your task:
@@ -209,7 +209,7 @@ Do not trace LiveView, workers, or internal modules - other subagents handle tho
 
 ### LiveView Tracer
 
-```
+```text
 You are tracing LiveView entry points for: {target_mfa}
 
 Your task:
@@ -228,7 +228,7 @@ Focus only on LiveView modules. Output a structured list.
 
 ### Worker Tracer
 
-```
+```text
 You are tracing background worker entry points for: {target_mfa}
 
 Your task:

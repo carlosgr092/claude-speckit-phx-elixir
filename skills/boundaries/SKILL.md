@@ -12,7 +12,7 @@ Analyze module dependencies to ensure clean context separation and proper archit
 
 ## Usage
 
-```
+```text
 /spx:boundaries              # Check for violations
 /spx:boundaries --assess     # Score context health (0-100)
 /spx:boundaries --fix        # Suggest fixes for violations
@@ -124,7 +124,7 @@ Run `mix xref graph --format cycles --label compile`.
 Always end with actionable follow-up — findings without a plan
 get lost:
 
-```
+```text
 - `/spx:plan` — Create a plan to fix violations (recommended for 3+ issues)
 - `/spx:quick` — Fix a single boundary violation directly
 - `/spx:review` — Review specific modules for deeper issues

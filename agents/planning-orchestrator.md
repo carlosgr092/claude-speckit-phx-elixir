@@ -74,7 +74,7 @@ feature's topics:
 
 Spawn selectively based on what's needed:
 
-```
+```text
 Always spawn:
 +-- phoenix-patterns-analyst -> specs/<feature>/research/codebase-patterns.md
 
@@ -137,7 +137,7 @@ Spawn if changing function signatures or refactoring:
 After ALL research agents complete, spawn the context-supervisor to
 compress output before you read it:
 
-```
+```text
 Agent(subagent_type: "context-supervisor", prompt: """
 Compress research output for plan.
 Input: specs/<feature>/research/
@@ -206,7 +206,7 @@ Use the Agent tool with **FOCUSED prompts** scoped to relevant
 directories and patterns. Do NOT give vague prompts like "analyze
 the codebase."
 
-```
+```text
 Agent({
   subagent_type: "phoenix-patterns-analyst",
   prompt: "Analyze test patterns in test/int_support/ and

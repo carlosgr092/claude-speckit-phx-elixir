@@ -203,7 +203,7 @@ Run in order, skipping unavailable:
 
 After core verification passes, present discovered test commands:
 
-```
+```text
 Core verification passed. Additional test commands available:
 1. mix playwright.test (E2E, MIX_ENV=int_test)
 2. mix test.with_coverage (unit + coverage report)
@@ -214,7 +214,7 @@ Run any of these? [1/2/both/skip]
 
 When a tool is not available, report once:
 
-```
+```text
 Credo: ⏭ Not installed (add {:credo, "~> 1.7", only: [:dev, :test]} to deps)
 Dialyzer: ⏭ Not installed (add {:dialyxir, "~> 1.4", only: :dev} to deps)
 ```
@@ -223,7 +223,7 @@ Dialyzer: ⏭ Not installed (add {:dialyxir, "~> 1.4", only: :dev} to deps)
 
 ### Minimal Phoenix project (no extras)
 
-```
+```text
 Discovery: compile ✓ | format ✓ | credo ✗ | dialyzer ✗ | sobelow ✗ | ex_check ✗
 Test commands: mix test (unit only)
 Strategy: compile → format → test (3 steps). No additional tests to offer.
@@ -231,7 +231,7 @@ Strategy: compile → format → test (3 steps). No additional tests to offer.
 
 ### Full-featured project with ex_check
 
-```
+```text
 Discovery: compile ✓ | format ✓ | credo ✓ | dialyzer ✓ | sobelow ✓ | ex_check ✓
 Test commands: mix test.with_coverage (unit) | mix playwright.test (E2E, int_test)
 .check.exs: compiler, formatter, credo, dialyzer, sobelow, tests, prettier, xref
@@ -240,7 +240,7 @@ Strategy: mix check (covers all core). Then ask: "Run E2E? mix playwright.test"
 
 ### Project with CI alias, no ex_check
 
-```
+```text
 Discovery: compile ✓ | format ✓ | credo ✓ | dialyzer ✓ | sobelow ✗ | ex_check ✗
 Test commands: mix test (unit) | mix test.ci (unit + DB setup)
 Aliases: ci ["compile --warnings-as-errors", "format --check-formatted", "credo --strict", "test"]
@@ -249,7 +249,7 @@ Strategy: mix ci → mix dialyzer (not covered by alias). No E2E found.
 
 ### Project with custom test env only
 
-```
+```text
 Discovery: compile ✓ | format ✓ | credo ✓ | dialyzer ✗
 Test commands: mix test (unit) | MIX_ENV=int_test mix test --only integration
 preferred_envs: ["test.integration": :int_test]
